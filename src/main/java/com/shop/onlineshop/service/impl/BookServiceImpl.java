@@ -1,14 +1,20 @@
 package com.shop.onlineshop.service.impl;
 
+import com.shop.onlineshop.exception.BookNotFoundException;
+import com.shop.onlineshop.mapper.BookAddMapper;
+import com.shop.onlineshop.mapper.BookViewMapper;
+import com.shop.onlineshop.model.binding.BookAddBindingModel;
 import com.shop.onlineshop.model.entity.AuthorEntity;
 import com.shop.onlineshop.model.entity.BookEntity;
 import com.shop.onlineshop.model.entity.CategoryEntity;
 import com.shop.onlineshop.model.entity.PictureEntity;
+import com.shop.onlineshop.model.view.BookViewModel;
 import com.shop.onlineshop.repository.BookRepository;
 import com.shop.onlineshop.service.AuthorService;
 import com.shop.onlineshop.service.BookService;
 import com.shop.onlineshop.service.CategoryService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -24,6 +30,8 @@ public class BookServiceImpl implements BookService {
     private final AuthorService authorService;
     private final CategoryService categoryService;
     private final BookRepository bookRepository;
+    private final BookViewMapper bookViewMapper;
+    private final BookAddMapper bookAddMapper;
 
     @Override
     public void initBooks() {
@@ -106,5 +114,29 @@ public class BookServiceImpl implements BookService {
 
             bookRepository.save(swordOfTruth);
         }
+    }
+
+    @Override
+    public List<BookViewModel> getAllBooks() {
+
+        return bookViewMapper.bookEntityToBookViewModelList(bookRepository.findAll());
+    }
+
+    @Override
+    public BookViewModel getBookById(long id) {
+
+        BookEntity book = bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException("This book does not exists", HttpStatus.NOT_FOUND));
+
+        return bookViewMapper.bookEntityToBookViewModel(book);
+
+    }
+
+    @Override
+    public void addBook(BookAddBindingModel bookAddBindingModel) {
+
+        BookEntity book = bookAddMapper.BookAddBindingToBookEntity(bookAddBindingModel);
+        bookRepository.save(book);
+
     }
 }

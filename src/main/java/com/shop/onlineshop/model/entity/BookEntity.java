@@ -28,7 +28,7 @@ public class BookEntity extends BaseEntity {
     @Column(name = "languages")
     private String language;
 
-    @Column(name = "descriptions")
+    @Column(name = "descriptions", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "price")

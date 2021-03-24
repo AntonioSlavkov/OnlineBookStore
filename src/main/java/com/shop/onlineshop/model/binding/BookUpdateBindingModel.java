@@ -19,7 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookAddBindingModel {
+public class BookUpdateBindingModel {
 
     @Size(max = 255, message = "Size cannot exceed 255 characters")
     @NotBlank(message = "title cannot be empty")

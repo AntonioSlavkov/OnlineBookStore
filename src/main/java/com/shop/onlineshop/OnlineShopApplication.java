@@ -10,4 +10,6 @@ public class OnlineShopApplication {
         SpringApplication.run(OnlineShopApplication.class, args);
     }
 
+    //TODO Make MessageDTOs for the return of the responses on the add and delete methods
+    //TODO rename exceptions maybe?
 }

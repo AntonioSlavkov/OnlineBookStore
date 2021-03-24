@@ -1,16 +1,26 @@
 package com.shop.onlineshop.service.impl;
 
+import com.shop.onlineshop.exception.CategoryNotFountException;
+import com.shop.onlineshop.mapper.CategoryAddMapper;
+import com.shop.onlineshop.mapper.CategoryViewMapper;
+import com.shop.onlineshop.model.binding.CategoryAddBindingModel;
 import com.shop.onlineshop.model.entity.CategoryEntity;
+import com.shop.onlineshop.model.view.CategoryViewModel;
 import com.shop.onlineshop.repository.CategoryRepository;
 import com.shop.onlineshop.service.CategoryService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryViewMapper categoryViewMapper;
+    private final CategoryAddMapper categoryAddMapper;
 
     @Override
     public void initCategories() {
@@ -39,6 +49,41 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryEntity findByName(String name) {
         return categoryRepository
                 .findByName(name)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(null);
+    }
+
+    @Override
+    public List<CategoryViewModel> getAllCategories() {
+        return categoryViewMapper
+                .categoryEntityToCategoryViewList(categoryRepository.findAll());
+    }
+
+    @Override
+    public CategoryEntity saveCategory(CategoryEntity mainCategory) {
+        return categoryRepository.save(mainCategory);
+    }
+
+    @Override
+    public CategoryViewModel getCategoryById(long id) {
+
+        CategoryEntity category = categoryRepository
+                .findById(id)
+                .orElseThrow(() -> new CategoryNotFountException("This category does not exist", HttpStatus.NOT_FOUND));
+
+        return categoryViewMapper.categoryEntityToCategoryViewModel(category);
+    }
+
+    @Override
+    public void addCategory(CategoryAddBindingModel categoryAddBindingModel) {
+
+
+        //TODO fix the condition and throw an exception
+        // must check if the category is in the repository
+        if (categoryRepository.findByName(categoryAddBindingModel.getName()).isPresent()) {
+        }
+
+        CategoryEntity category = categoryAddMapper.categoryAddBindingToCategoryEntity(categoryAddBindingModel);
+        categoryRepository.save(category);
+
     }
 }

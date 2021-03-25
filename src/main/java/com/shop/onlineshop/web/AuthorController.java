@@ -35,6 +35,7 @@ public class AuthorController {
             @Valid @RequestBody AuthorAddBindingModel authorAddBindingModel) {
 
         //TODO implement in service
+        authorService.addAuthor(authorAddBindingModel);
 
         return ResponseEntity.ok().build();
     }

@@ -1,5 +1,6 @@
 package com.shop.onlineshop.service.impl;
 
+import com.shop.onlineshop.exception.CategoryAlreadyExistException;
 import com.shop.onlineshop.exception.CategoryNotFountException;
 import com.shop.onlineshop.mapper.CategoryAddMapper;
 import com.shop.onlineshop.mapper.CategoryViewMapper;
@@ -77,9 +78,8 @@ public class CategoryServiceImpl implements CategoryService {
     public void addCategory(CategoryAddBindingModel categoryAddBindingModel) {
 
 
-        //TODO fix the condition and throw an exception
-        // must check if the category is in the repository
         if (categoryRepository.findByName(categoryAddBindingModel.getName()).isPresent()) {
+            throw new CategoryAlreadyExistException("This category already exist.", HttpStatus.CONFLICT);
         }
 
         CategoryEntity category = categoryAddMapper.categoryAddBindingToCategoryEntity(categoryAddBindingModel);

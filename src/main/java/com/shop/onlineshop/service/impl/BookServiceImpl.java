@@ -1,6 +1,7 @@
 package com.shop.onlineshop.service.impl;
 
 import com.shop.onlineshop.exception.AuthorNotFoundException;
+import com.shop.onlineshop.exception.BookAlreadyExistException;
 import com.shop.onlineshop.exception.BookNotFoundException;
 import com.shop.onlineshop.exception.CategoryNotFountException;
 import com.shop.onlineshop.mapper.BookAddMapper;
@@ -183,6 +184,10 @@ public class BookServiceImpl implements BookService {
         }
         book.setSubCategories(subCategories);
 
+
+        if (bookRepository.findByTitle(book.getTitle()).isPresent()) {
+            throw new BookAlreadyExistException("This book already exist.", HttpStatus.CONFLICT);
+        }
 
         bookRepository.save(book);
 

@@ -1,5 +1,6 @@
 package com.shop.onlineshop.service;
 
+import com.shop.onlineshop.model.binding.AuthorAddBindingModel;
 import com.shop.onlineshop.model.entity.AuthorEntity;
 import com.shop.onlineshop.model.view.AuthorViewModel;
 
@@ -15,4 +16,6 @@ public interface AuthorService {
     List<AuthorViewModel> getAllAuthors();
 
     AuthorViewModel getAuthorById(Long id);
+
+    void addAuthor(AuthorAddBindingModel authorAddBindingModel);
 }

@@ -1,16 +1,11 @@
-package com.shop.onlineshop.exception;
+package com.shop.onlineshop.exception.handler;
 
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -21,23 +16,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
-public class BookExceptionHandler extends ResponseEntityExceptionHandler{
-
-    @ExceptionHandler(value = {BookNotFoundException.class})
-    @ResponseBody
-    public ResponseEntity<Object> handleBookNotFoundException (BookNotFoundException e) {
-
-        return ResponseEntity
-                .status(e.getHttpStatus())
-                .body(new ErrorMessageDto(e.getHttpStatus().value(), e.getMessage()));
-    }
-
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public List<ObjectError> handleValidationError(MethodArgumentNotValidException exception) {
-//        BindingResult bindingResult = exception.getBindingResult();
-//        return bindingResult.getAllErrors();
-//    }
+public class ResponseEntityHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,

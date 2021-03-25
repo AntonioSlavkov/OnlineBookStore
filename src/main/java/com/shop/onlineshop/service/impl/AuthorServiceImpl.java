@@ -1,7 +1,10 @@
 package com.shop.onlineshop.service.impl;
 
+import com.shop.onlineshop.exception.AuthorAlreadyExistException;
 import com.shop.onlineshop.exception.AuthorNotFoundException;
+import com.shop.onlineshop.mapper.AuthorAddMapper;
 import com.shop.onlineshop.mapper.AuthorViewMapper;
+import com.shop.onlineshop.model.binding.AuthorAddBindingModel;
 import com.shop.onlineshop.model.entity.AuthorEntity;
 import com.shop.onlineshop.model.view.AuthorViewModel;
 import com.shop.onlineshop.repository.AuthorRepository;
@@ -18,6 +21,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
     private final AuthorViewMapper authorViewMapper;
+    private final AuthorAddMapper authorAddMapper;
 
     @Override
     public void initAuthors() {
@@ -62,6 +66,18 @@ public class AuthorServiceImpl implements AuthorService {
                         .orElseThrow(() -> new AuthorNotFoundException(
                                 "Author does not exist",
                                 HttpStatus.NOT_FOUND)));
+    }
+
+    @Override
+    public void addAuthor(AuthorAddBindingModel authorAddBindingModel) {
+
+        if (authorRepository.findByName(authorAddBindingModel.getName()).isPresent()) {
+            throw new AuthorAlreadyExistException("Author already exist.", HttpStatus.CONFLICT);
+        }
+
+        AuthorEntity author = authorAddMapper.authorAddBindingToAuthorEntity(authorAddBindingModel);
+        authorRepository.save(author);
+
     }
 
 

@@ -33,7 +33,7 @@ public class CategoryController {
     public ResponseEntity<CategoryAddBindingModel> addCategory (
             @Valid @RequestBody CategoryAddBindingModel categoryAddBindingModel) {
 
-        //TODO implement in service
+
         categoryService.addCategory(categoryAddBindingModel);
 
         return ResponseEntity.ok().build();

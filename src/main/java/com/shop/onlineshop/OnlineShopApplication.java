@@ -12,4 +12,7 @@ public class OnlineShopApplication {
 
     //TODO Make MessageDTOs for the return of the responses on the add and delete methods
     //TODO add validation to category and author
+    //TODO implement roles and orders
+    // TODO finish security
+    //TODO test user register
 }

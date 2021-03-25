@@ -1,10 +1,10 @@
 package com.shop.onlineshop.model.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class UserEntity extends BaseEntity {
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String username;
 
     @Column(name = "first_name")
@@ -23,7 +23,7 @@ public class UserEntity extends BaseEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "password")
@@ -32,6 +32,11 @@ public class UserEntity extends BaseEntity {
     //TODO: mapping table for roles maybe?
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<RoleEntity> roles;
+    private List<RoleEntity> roles = new ArrayList<>();
+
+    public UserEntity addRole(RoleEntity roleEntity) {
+        this.roles.add(roleEntity);
+        return this;
+    }
 
 }

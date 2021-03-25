@@ -1,6 +1,7 @@
 package com.shop.onlineshop.model.entity;
 
 import com.shop.onlineshop.model.entity.enums.RoleName;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,8 +17,9 @@ import java.lang.annotation.Target;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class RoleEntity extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
-    private RoleName name;
+    private RoleName role;
 }

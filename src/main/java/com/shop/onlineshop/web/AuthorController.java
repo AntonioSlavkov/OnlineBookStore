@@ -2,7 +2,6 @@ package com.shop.onlineshop.web;
 
 import com.shop.onlineshop.model.binding.AuthorAddBindingModel;
 import com.shop.onlineshop.model.view.AuthorViewModel;
-import com.shop.onlineshop.model.view.CategoryViewModel;
 import com.shop.onlineshop.service.AuthorService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,11 +30,11 @@ public class AuthorController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<AuthorAddBindingModel> addAuthor (
+    public ResponseEntity<AuthorAddBindingModel> addAuthors (
             @Valid @RequestBody AuthorAddBindingModel authorAddBindingModel) {
 
-        //TODO implement in service
-        authorService.addAuthor(authorAddBindingModel);
+
+        authorService.addAuthors(authorAddBindingModel);
 
         return ResponseEntity.ok().build();
     }

@@ -18,5 +18,5 @@ import javax.persistence.Table;
 public class CategoryEntity extends BaseEntity{
 
     @Column(name = "category")
-    private String name;
+    private String category;
 }

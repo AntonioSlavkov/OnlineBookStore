@@ -9,5 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CategoryViewModel {
 
-    private String name;
+    private String category;
 }

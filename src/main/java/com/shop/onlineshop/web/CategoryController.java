@@ -30,11 +30,10 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<CategoryAddBindingModel> addCategory (
+    public ResponseEntity<CategoryAddBindingModel> addListOfCategories (
             @Valid @RequestBody CategoryAddBindingModel categoryAddBindingModel) {
 
-
-        categoryService.addCategory(categoryAddBindingModel);
+        categoryService.addCategories(categoryAddBindingModel);
 
         return ResponseEntity.ok().build();
     }

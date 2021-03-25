@@ -1,14 +1,13 @@
 package com.shop.onlineshop.service;
 
 import com.shop.onlineshop.model.binding.CategoryAddBindingModel;
-import com.shop.onlineshop.model.entity.AuthorEntity;
 import com.shop.onlineshop.model.entity.CategoryEntity;
 import com.shop.onlineshop.model.view.CategoryViewModel;
 
 import java.util.List;
 
 public interface CategoryService {
-    void initCategories();
+//    void initCategories();
 
     CategoryEntity findByName(String name);
 
@@ -18,5 +17,5 @@ public interface CategoryService {
 
     CategoryViewModel getCategoryById(long id);
 
-    void addCategory(CategoryAddBindingModel categoryAddBindingModel);
+    void addCategories(CategoryAddBindingModel categoryAddBindingModel);
 }

@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface BookService {
-    void initBooks();
+//    void initBooks();
 
     List<BookViewModel> getAllBooks ();
 

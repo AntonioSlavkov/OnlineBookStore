@@ -23,27 +23,27 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorViewMapper authorViewMapper;
     private final AuthorAddMapper authorAddMapper;
 
-    @Override
-    public void initAuthors() {
-
-        if (authorRepository.count() == 0) {
-
-            AuthorEntity rowling = new AuthorEntity("Joanne Rowling");
-            authorRepository.save(rowling);
-
-            AuthorEntity tolkien = new AuthorEntity("John Ronald Reuel Tolkien");
-            authorRepository.save(tolkien);
-
-            AuthorEntity goodKind = new AuthorEntity("Terry Goodkind");
-            authorRepository.save(goodKind);
-
-        }
-    }
+//    @Override
+//    public void initAuthors() {
+//
+//        if (authorRepository.count() == 0) {
+//
+//            AuthorEntity rowling = new AuthorEntity("Joanne Rowling");
+//            authorRepository.save(rowling);
+//
+//            AuthorEntity tolkien = new AuthorEntity("John Ronald Reuel Tolkien");
+//            authorRepository.save(tolkien);
+//
+//            AuthorEntity goodKind = new AuthorEntity("Terry Goodkind");
+//            authorRepository.save(goodKind);
+//
+//        }
+//    }
 
     @Override
     public AuthorEntity findByName(String name) {
         return authorRepository
-                .findByName(name)
+                .findByAuthor(name)
                 .orElseThrow(null);
     }
 
@@ -69,14 +69,21 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void addAuthor(AuthorAddBindingModel authorAddBindingModel) {
+    public void addAuthors(AuthorAddBindingModel authorAddBindingModel) {
 
-        if (authorRepository.findByName(authorAddBindingModel.getName()).isPresent()) {
-            throw new AuthorAlreadyExistException("Author already exist.", HttpStatus.CONFLICT);
+
+        for (String authorBinding : authorAddBindingModel.getAuthors()) {
+
+
+            if (authorRepository.findByAuthor(authorBinding).isPresent()) {
+                throw new AuthorAlreadyExistException("Author already exist.", HttpStatus.CONFLICT);
+            }
+
+            AuthorEntity author = authorAddMapper.authorAddBindingToAuthorEntity(authorBinding);
+            authorRepository.save(author);
         }
 
-        AuthorEntity author = authorAddMapper.authorAddBindingToAuthorEntity(authorAddBindingModel);
-        authorRepository.save(author);
+
 
     }
 

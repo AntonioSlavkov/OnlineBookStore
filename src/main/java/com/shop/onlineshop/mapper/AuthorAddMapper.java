@@ -8,6 +8,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface AuthorAddMapper {
 
+
+    @Mapping(target = "author", source = "authors")
     @Mapping(ignore = true, target = "id")
-    AuthorEntity authorAddBindingToAuthorEntity (AuthorAddBindingModel authorAddBindingModel);
+    AuthorEntity authorAddBindingToAuthorEntity (String authors);
 }

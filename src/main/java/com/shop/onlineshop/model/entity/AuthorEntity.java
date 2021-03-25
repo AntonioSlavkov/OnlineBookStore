@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class AuthorEntity extends BaseEntity{
 
     @Column(name = "name")
-    private String name;
+    private String author;
 
 
 }

@@ -7,7 +7,7 @@ import com.shop.onlineshop.model.view.AuthorViewModel;
 import java.util.List;
 
 public interface AuthorService {
-    void initAuthors();
+//    void initAuthors();
 
     AuthorEntity findByName(String name);
 
@@ -17,5 +17,5 @@ public interface AuthorService {
 
     AuthorViewModel getAuthorById(Long id);
 
-    void addAuthor(AuthorAddBindingModel authorAddBindingModel);
+    void addAuthors(AuthorAddBindingModel authorAddBindingModel);
 }

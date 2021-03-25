@@ -1,0 +1,181 @@
+[
+  {
+    "title": "Harry Potter and the Goblet of Fire",
+    "pages": 300,
+    "language": "English",
+    "description": "some description",
+    "price": 20.30,
+    "pictureUrls": [
+      {
+        "id": 1,
+        "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/81t2CVWEsUL.jpg"
+      }
+    ],
+    "author": {
+      "id": 1,
+      "author": "Joanne Rowling"
+    },
+    "mainCategory": {
+      "id": 1,
+      "category": "Fantasy"
+    },
+    "subCategories": [
+      {
+        "id": 5,
+        "category": "Thriller"
+      },
+      {
+        "id": 4,
+        "category": "Drama"
+      },
+      {
+        "id": 2,
+        "category": "Fiction"
+      }
+    ]
+  },
+  {
+    "title": "The Lord of the Rings: The return of the kind",
+    "pages": 600,
+    "language": "English",
+    "description": "some other description",
+    "price": 30.10,
+    "pictureUrls": [
+      {
+        "id": 2,
+        "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/51M708KEH5L.jpg"
+      },
+      {
+        "id": 3,
+        "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/41Cqh4aThYL.jpg"
+      }
+    ],
+    "author": {
+      "id": 2,
+      "author": "John Ronald Reuel Tolkien"
+    },
+    "mainCategory": {
+      "id": 1,
+      "category": "Fantasy"
+    },
+    "subCategories": [
+      {
+        "id": 4,
+        "category": "Drama"
+      },
+      {
+        "id": 2,
+        "category": "Fiction"
+      }
+    ]
+  },
+  {
+    "title": "The sword of Truth: Warheart",
+    "pages": 400,
+    "language": "English",
+    "description": "yet another description",
+    "price": 40.30,
+    "pictureUrls": [
+      {
+        "id": 4,
+        "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/512wolRCzHL.jpg"
+      },
+      {
+        "id": 5,
+        "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/317nwKiMuFL.jpg"
+      }
+    ],
+    "author": {
+      "id": 3,
+      "author": "Terry Goodkind"
+    },
+    "mainCategory": {
+      "id": 1,
+      "category": "Fantasy"
+    },
+    "subCategories": [
+      {
+        "id": 3,
+        "category": "Romance"
+      },
+      {
+        "id": 4,
+        "category": "Drama"
+      },
+      {
+        "id": 2,
+        "category": "Fiction"
+      }
+    ]
+  },
+  {
+    "title": "Harry Potter and the Half Blood Prince",
+    "pages": 400,
+    "language": "English",
+    "description": "some description for the new book newst",
+    "price": 30.00,
+    "pictureUrls": [
+      {
+        "id": 8,
+        "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/81t2CVWEsUL.jpg"
+      }
+    ],
+    "author": {
+      "id": 1,
+      "author": "Joanne Rowling"
+    },
+    "mainCategory": {
+      "id": 1,
+      "category": "Fantasy"
+    },
+    "subCategories": [
+      {
+        "id": 5,
+        "category": "Thriller"
+      },
+      {
+        "id": 4,
+        "category": "Drama"
+      },
+      {
+        "id": 2,
+        "category": "Fiction"
+      }
+    ]
+  },
+  {
+    "title": "Harry Potter and the Order of the Phoenix",
+    "pages": 360,
+    "language": "English",
+    "description": "some description for the new book",
+    "price": 25.00,
+    "pictureUrls": [
+      {
+        "id": 9,
+        "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/81t2CVWEsUL.jpg"
+      }
+    ],
+    "author": {
+      "id": 1,
+      "author": "Joanne Rowling"
+    },
+    "mainCategory": {
+      "id": 1,
+      "category": "Fantasy"
+    },
+    "subCategories": [
+      {
+        "id": 5,
+        "category": "Thriller"
+      },
+      {
+        "id": 4,
+        "category": "Drama"
+      },
+      {
+        "id": 2,
+        "category": "Fiction"
+      }
+    ]
+  }
+]

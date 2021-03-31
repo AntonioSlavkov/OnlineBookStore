@@ -18,7 +18,7 @@ import java.util.Set;
 @Setter
 public class BookEntity extends BaseEntity {
 
-    @Column(name = "titles")
+    @Column(name = "titles", unique = true, nullable = false)
     private String title;
 
     @Column(name = "pages")
@@ -30,7 +30,7 @@ public class BookEntity extends BaseEntity {
     @Column(name = "descriptions", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
 
     @OneToMany(cascade = CascadeType.ALL)

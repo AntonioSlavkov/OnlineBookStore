@@ -1,16 +1,15 @@
-package com.shop.onlineshop.model.view;
+package com.shop.onlineshop.model.binding;
 
+import com.shop.onlineshop.model.entity.enums.CategoryName;
 import com.shop.onlineshop.model.entity.enums.RoleName;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class RoleViewModel {
+public class RoleAddBindingModel {
 
     private RoleName role;
 }

@@ -1,25 +1,32 @@
 import React, { useRef } from 'react';
 import {useForm} from 'react-hook-form';
 import {ErrorMessage} from '@hookform/error-message';
-import {useState} from "react/cjs/react.production.min";
-import axios from "axios";
+import UserApi from "../utils/api/UserApi";
 
 
 
 const Register = () => {
     const {register, handleSubmit, errors, watch} = useForm()
+    // const [message, setMessage] = useState("")
     const password = useRef()
     password.current = watch("password")
     // const [submitting, setSubmitting] = useState(false)
 
 
     const onSubmit = (data) => {
+
+        UserApi.register(data.username, data.email, data.password, data.firstName, data.lastName)
+            .then(response => {
+                console.log(response)
+            })
+
        // setSubmitting(true)
-        console.log(data)
 
         // setSubmitting(false)
 
     }
+
+
 
 
     const getErrorMessage = (errors, inputName) => {
@@ -114,8 +121,6 @@ const Register = () => {
 
             <div>
                 <input type="submit" />
-
-                {/*disabled={submitting}*/}
             </div>
         </form>
     )

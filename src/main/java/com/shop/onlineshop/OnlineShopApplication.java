@@ -14,5 +14,5 @@ public class OnlineShopApplication {
     //TODO add validation to category and author
     //TODO implement roles and orders
     // TODO finish security
-    //TODO test user register
+    //TODO make unique email and username
 }

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 public class AuthorEntity extends BaseEntity{
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true, nullable = false)
     private String author;
 
 

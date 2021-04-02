@@ -26,7 +26,7 @@ public class UserAddBindingModel {
     private String lastName;
 
     @Email
-    @NotNull
+    @NotNull(message = "Email must not be null")
     private String email;
 
     @Size(min = 10, max = 20, message = "Password must be between 10 and 20 characters")

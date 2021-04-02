@@ -1,17 +1,29 @@
 import axios from "axios";
 
-const API_URL = "http://http://localhost:8080/roles/"
+const API_URL = "http://localhost:8080/roles/"
 
-const getUserRoles = async () => {
-    return await axios.get(API_URL + "all")
+const getUserRoles = async (username) => {
+    return await axios.get(API_URL + "all", {
+        params: {
+            username: username
+        }
+    })
 }
 
-const addRoleToUser = async () => {
-    return await axios.post(API_URL + "add")
+const addRoleToUser = async (username, roleName) => {
+    return await axios.post(API_URL + "add", {
+        username,
+        roleName
+    })
 }
 
-const deleteUserRole = async () => {
-    return await axios.delete(API_URL + "delete")
+const deleteUserRole = async (username, roleName) => {
+    return await axios.delete(API_URL + "delete", {
+        params: {
+            username: username,
+            roleName: roleName
+        }
+    })
 }
 
 export default {

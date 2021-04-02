@@ -14,10 +14,10 @@ const Register = () => {
 
 
     const onSubmit = (data) => {
-
+        console.log(data)
         UserApi.register(data.username, data.email, data.password, data.firstName, data.lastName)
             .then(response => {
-                console.log(response)
+                // console.log(response.headers.message)
             })
 
        // setSubmitting(true)
@@ -89,7 +89,7 @@ const Register = () => {
 
             <div>
                 <label>Email address</label>
-                <input type="email" placeholder="Enter email address" name="emailAddress" ref={register({
+                <input type="email" placeholder="Enter email address" name="email" ref={register({
                     required: "Your email address is required",
                     pattern: {
                         value: /\S+@\S+\.\S+/i,

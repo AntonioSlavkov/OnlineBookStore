@@ -32,9 +32,9 @@ public class RoleServiceImpl implements RoleService {
     private final UserRepository userRepository;
 
     @Override
-    public List<RoleViewModel> getUserRoles(UserAddRoleBindingModel userAddRoleBindingModel) {
+    public List<RoleViewModel> getUserRoles(String username) {
 
-        UserEntity user = userService.findUserByUsername(userAddRoleBindingModel.getUsername());
+        UserEntity user = userService.findUserByUsername(username);
         return user
                 .getRoles()
                 .stream()
@@ -62,7 +62,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void addRoleToUser(UserAddRoleBindingModel userAddRoleBindingModel) {
 
-        RoleName roleName = userAddRoleBindingModel.getRole();
+        RoleName roleName = userAddRoleBindingModel.getRoleName();
         RoleEntity role = roleRepository.findByRole(roleName).orElseThrow( () -> new InvalidRoleException(
                 "Role is invalid", HttpStatus.BAD_REQUEST));
 
@@ -85,17 +85,17 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void deleteRoleToUser(UserDeleteRoleBindingModel userDeleteRoleBindingModel) {
+    public void deleteRoleToUser(String username, RoleName roleName) {
 
-        RoleName roleName = userDeleteRoleBindingModel.getRole();
+//        RoleName roleName = userDeleteRoleBindingModel.getRole();
         RoleEntity role = roleRepository.findByRole(roleName).orElseThrow( () -> new InvalidRoleException(
                 "Role is invalid", HttpStatus.BAD_REQUEST));
 
-        UserEntity user = userService.findUserByUsername(userDeleteRoleBindingModel.getUsername());
+        UserEntity user = userService.findUserByUsername(username);
 
-        if (!user.getUsername().equals(userDeleteRoleBindingModel.getUsername())) {
+        if (!user.getUsername().equals(username)) {
             throw new UsernameNotFoundException(
-                    "User with username " + userDeleteRoleBindingModel.getUsername() + " does not exist");
+                    "User with username " + username + " does not exist");
         }
 
         user.deleteRole(role);

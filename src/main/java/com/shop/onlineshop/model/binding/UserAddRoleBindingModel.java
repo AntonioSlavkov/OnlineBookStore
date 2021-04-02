@@ -11,5 +11,5 @@ import lombok.Setter;
 public class UserAddRoleBindingModel {
 
     private String username;
-    private RoleName role;
+    private RoleName roleName;
 }

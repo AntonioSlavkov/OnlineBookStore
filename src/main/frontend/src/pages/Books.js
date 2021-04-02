@@ -27,7 +27,7 @@ return (
     books.map((book, index) => {
         const {imageUrl} = book.pictureUrls[0];
         return (
-            <Container key={index} className={"row"}>
+            <Container key={index} className={"container"}>
                 <div className={"col-md-3"}>
                     <div className={"card mb-4 box-shadow"}>
                         <h4>

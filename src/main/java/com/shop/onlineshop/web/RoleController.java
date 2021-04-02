@@ -3,6 +3,7 @@ package com.shop.onlineshop.web;
 import com.shop.onlineshop.model.binding.RoleAddBindingModel;
 import com.shop.onlineshop.model.binding.UserAddRoleBindingModel;
 import com.shop.onlineshop.model.binding.UserDeleteRoleBindingModel;
+import com.shop.onlineshop.model.entity.enums.RoleName;
 import com.shop.onlineshop.model.view.RoleViewModel;
 import com.shop.onlineshop.service.RoleService;
 import lombok.AllArgsConstructor;
@@ -20,9 +21,9 @@ public class RoleController {
     private final RoleService roleService;
 
     @GetMapping("/all")
-    public List<RoleViewModel> getUserRoles (@RequestBody UserAddRoleBindingModel userAddRoleBindingModel) {
+    public List<RoleViewModel> getUserRoles (@RequestParam String username) {
 
-        return roleService.getUserRoles(userAddRoleBindingModel);
+        return roleService.getUserRoles(username);
     }
 
     @PostMapping("/add")
@@ -34,9 +35,9 @@ public class RoleController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> removeRoleToUser (@RequestBody UserDeleteRoleBindingModel userDeleteRoleBindingModel) {
+    public ResponseEntity<?> removeRoleToUser (@RequestParam String username, @RequestParam RoleName roleName) {
 
-        roleService.deleteRoleToUser(userDeleteRoleBindingModel);
+        roleService.deleteRoleToUser(username, roleName);
 
         return ResponseEntity.ok().build();
     }

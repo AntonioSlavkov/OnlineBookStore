@@ -16,6 +16,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class BookViewModel {
 
+    private Long id;
+
     private String title;
 
     private int pages;

@@ -41,7 +41,7 @@ public class BookAddBindingModel {
     private List<PictureEntity> pictureUrls;
 
     private AuthorEntity author;
-
+    
     private CategoryEntity mainCategory;
 
     private Set<CategoryEntity> subCategories;

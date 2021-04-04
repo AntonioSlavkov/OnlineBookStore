@@ -4,6 +4,7 @@ import com.shop.onlineshop.model.binding.RoleAddBindingModel;
 import com.shop.onlineshop.model.binding.UserAddRoleBindingModel;
 import com.shop.onlineshop.model.binding.UserDeleteRoleBindingModel;
 import com.shop.onlineshop.model.entity.enums.RoleName;
+import com.shop.onlineshop.model.message.MessageDto;
 import com.shop.onlineshop.model.view.RoleViewModel;
 import com.shop.onlineshop.service.RoleService;
 import lombok.AllArgsConstructor;
@@ -31,7 +32,7 @@ public class RoleController {
 
         roleService.addRoleToUser(userAddRoleBindingModel);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(new MessageDto("Role Added successfully"));
     }
 
     @DeleteMapping("/delete")
@@ -39,6 +40,6 @@ public class RoleController {
 
         roleService.deleteRoleToUser(username, roleName);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(new MessageDto("Role deleted successfully"));
     }
 }

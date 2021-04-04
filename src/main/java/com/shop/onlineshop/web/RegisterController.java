@@ -1,6 +1,7 @@
 package com.shop.onlineshop.web;
 
 import com.shop.onlineshop.model.binding.UserAddBindingModel;
+import com.shop.onlineshop.model.message.MessageDto;
 import com.shop.onlineshop.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,6 @@ public class RegisterController {
     public ResponseEntity<?> registerUser (@Valid @RequestBody UserAddBindingModel userAddBindingModel) {
 
         userService.registerUser(userAddBindingModel);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(new MessageDto("User registered Successfully"));
     }
 }

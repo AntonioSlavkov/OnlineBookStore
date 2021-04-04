@@ -7,24 +7,32 @@ import CartButton from "./buttons/CartButton";
 import ProfileButton from "./buttons/ProfileButton";
 import RootAdminPanelButton from "./buttons/RootAdminPanelButton";
 import AdminPanelButton from "./buttons/AdminPanelButton";
+import {ButtonGroup} from "react-bootstrap";
+
 
 
 const Header = () => {
     return (
         <header>
             <div>
-                <SignUpButton/>
-                <LogInButton/>
+                <ButtonGroup>
+                    <SignUpButton/>
+                    <LogInButton/>
+                </ButtonGroup>
+
             </div>
 
             <div>
                 <nav>
-                    <IndexButton/>
-                    <AdminPanelButton/>
-                    <BooksButton/>
-                    <CartButton/>
-                    <ProfileButton/>
-                    <RootAdminPanelButton/>
+                    <ButtonGroup>
+                        <IndexButton/>
+                        <BooksButton/>
+                        <CartButton/>
+                        <ProfileButton/>
+                        <AdminPanelButton/>
+                        <RootAdminPanelButton/>
+                    </ButtonGroup>
+
                 </nav>
             </div>
         </header>

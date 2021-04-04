@@ -153,7 +153,7 @@ const RootAdminPanel = () => {
                                 type="button"
                                 onClick={deleteRole}
                             >
-                                Add role
+                                Delete role
                             </button>
                         </div>
                     </form>

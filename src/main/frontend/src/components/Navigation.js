@@ -8,8 +8,12 @@ import Profile from "../pages/Profile";
 import RootAdminPanel from "../pages/RootAdminPanel";
 import AdminPanel from "../pages/AdminPanel";
 import Cart from "../pages/Cart";
+import Book from "../pages/Book";
+import AdminBookOperation from "./AdminBookOperation";
 
 const Navigation = () => {
+
+
     return (
         <Switch>
             <Route path="/" exact component={App}/>
@@ -20,6 +24,7 @@ const Navigation = () => {
             <Route path="/rootAdminPanel" component={RootAdminPanel}/>
             <Route path="/adminPanel" component={AdminPanel}/>
             <Route path="/cart" component={Cart}/>
+            <Route path="/book/:id" component={Book}/>
         </Switch>
     )
 }

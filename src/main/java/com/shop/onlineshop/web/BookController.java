@@ -2,6 +2,7 @@ package com.shop.onlineshop.web;
 
 import com.shop.onlineshop.model.binding.BookAddBindingModel;
 import com.shop.onlineshop.model.binding.BookUpdateBindingModel;
+import com.shop.onlineshop.model.message.MessageDto;
 import com.shop.onlineshop.model.view.BookViewModel;
 import com.shop.onlineshop.service.BookService;
 import lombok.AllArgsConstructor;
@@ -32,17 +33,17 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<BookAddBindingModel> addBook (@Valid @RequestBody BookAddBindingModel bookAddBindingModel) {
+    public ResponseEntity<Object> addBook (@Valid @RequestBody BookAddBindingModel bookAddBindingModel) {
 
         bookService.addBook(bookAddBindingModel);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(new MessageDto("Book added successfully."));
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deleteBook (@PathVariable Long id) {
 
         bookService.deleteBookById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(new MessageDto("Book deleted successfully."));
     }
 
     @PutMapping("book/{id}")

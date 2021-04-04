@@ -3,10 +3,13 @@ import bookApi from "../utils/api/bookApi";
 import {Image} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Container from 'react-bootstrap/Container';
+import {Link} from "react-router-dom";
+import Book from "./Book";
 
 
-const Books = () => {
+const Books = ({match}) => {
     const [books, setBooks] = useState([])
+    const id = match.params.id
 
     useEffect(() => {
         getBooks()
@@ -33,7 +36,11 @@ return (
                         <h4>
                             {book.title}
                         </h4>
-                        <Image className="card-img-top" src={imageUrl} thumbnail={true}/>
+
+                        <Link to={`book/${book.id}`}>
+                            <Image className="card-img-top" src={imageUrl} thumbnail={true}/>
+                        </Link>
+
                         <p>
                             {book.price}$
                         </p>

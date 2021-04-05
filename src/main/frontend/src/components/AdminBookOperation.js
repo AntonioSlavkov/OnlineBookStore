@@ -5,16 +5,17 @@ import {useFieldArray, useForm} from "react-hook-form";
 import {ErrorMessage} from "@hookform/error-message";
 
 
+
+
 const AdminBookOperation = () => {
 
-    const [book, setBook] = useState('')
     const [books, setBooks] = useState([])
     const [bookId, setBookId] = useState('')
-    const {register, handleSubmit, errors, control, watch} = useForm(
+    const {register, handleSubmit, formState: { errors }, control, watch} = useForm(
         {
         defaultValues: {
-            pictureUrls: [{link: "picture url"}],
-            subCategories: [{subCategory: "sub category"}]
+            pictureUrls: [{imageUrl: "picture url"}],
+            subCategories: [{category: "sub category"}]
         }
     }
 
@@ -27,6 +28,10 @@ const AdminBookOperation = () => {
         control,
         name: "subCategories",
     })
+
+    const updateBookId = e => {
+        setBookId(e.target.value)
+    }
 
     const getErrorMessage = (errors, inputName) => {
         return <ErrorMessage errors={errors} name={inputName}>
@@ -43,9 +48,18 @@ const AdminBookOperation = () => {
     }, [])
 
     const onSubmit = data => {
-        console.log(data)
+        // console.log(data)
+        // console.log("title", data.title)
+        // console.log("pages", data.pages)
+        // console.log("language", data.language)
+        // console.log("description", data.description)
+        // console.log("price", data.price)
+        // console.log("pictureUrls", data.pictureUrls)
+        // console.log("author", data.author)
+        // console.log("category", data.category)
+        // console.log("subCategories", data.subCategories)
         bookApi.addBook(data.title, data.pages, data.language, data.description, data.price, data.pictureUrls,
-            data.author, data.category, data.subCategories)
+            data.author, data.mainCategory, data.subCategories)
             .then(response => {
                 console.log(response)
             }).catch(error => {
@@ -53,10 +67,6 @@ const AdminBookOperation = () => {
         })
 
     }
-
-    // const addBook = (data) => {
-    //
-    // }
 
     const deleteBookById = () => {
         bookApi.deleteBook(bookId)
@@ -107,37 +117,37 @@ const AdminBookOperation = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     <label>Title</label>
-                    <input name="title" type="text" placeholder="Title"
-                           {...register("Title", {required: true, maxLength: 255})} />
+                    <input type="text" placeholder="Title"
+                           {...register("title", {required: true, maxLength: 255})} />
                     {getErrorMessage(errors, "title")}
 
                     <label>Number of pages</label>
-                    <input name="pages" type="number" placeholder="Pages"
-                           {...register("Pages", {required: true, maxLength: 3000})} />
+                    <input type="number" placeholder="Pages"
+                           {...register("pages", {required: true, maxLength: 3000})} />
                     {getErrorMessage(errors, "pages")}
 
                     <label>Language</label>
-                    <input name="language" type="text" placeholder="Language"
-                           {...register("Language", {required: true})} />
+                    <input type="text" placeholder="Language"
+                           {...register("language", {required: true})} />
                     {getErrorMessage(errors, "language")}
 
                     <label>Price</label>
-                    <input name="price" type="number" placeholder="Price"
-                           {...register("Price", {required: true, min: 0})} />
+                    <input type="number" placeholder="Price"
+                           {...register("price", {required: true, min: 0})} />
                     {getErrorMessage(errors, "price")}
 
                     <label>Main Category</label>
-                    <input name="mainCategory" type="text" placeholder="Main Category"
-                           {...register("Main Category", {required: true})} />
+                    <input type="text" placeholder="Main Category"
+                           {...register("mainCategory", {required: true})} />
                     {getErrorMessage(errors, "mainCategory")}
 
                     <label>Author</label>
-                    <input name="author" type="text" placeholder="Author"
-                           {...register("Author", {required: true})}/>
+                    <input type="text" placeholder="Author"
+                           {...register("author", {required: true})}/>
                     {getErrorMessage(errors, "author")}
 
                     <label>Description</label>
-                    <textarea name="description" {...register("Description",
+                    <textarea {...register("description",
                         {required: true})} />
                     {getErrorMessage(errors, "description")}
 
@@ -145,8 +155,8 @@ const AdminBookOperation = () => {
                         {pictureUrlFields.map((item, index) => {
                             return (
                                 <li key={item.id}>
-                                    <input name={`pictureUrls[${index}].link}`}
-                                           {...register(`pictureUrls.${index}.link`)}
+                                    <input name={`pictureUrls[${index}].imageUrl}`}
+                                           {...register(`pictureUrls.${index}.imageUrl`)}
                                     />
                                     <button type="button" onClick={() => pictureUrlRemove(index)}>
                                         Delete
@@ -165,8 +175,8 @@ const AdminBookOperation = () => {
                         {subCategoryFields.map((secondItem, index) => {
                             return (
                                 <li key={secondItem.id}>
-                                    <input name={`subCategories[${index}].subCategory}`}
-                                           {...register(`subCategories.${index}.subCategory`)}
+                                    <input name={`subCategories[${index}].category}`}
+                                           {...register(`subCategories.${index}.category`)}
                                     />
                                     <button type="button" onClick={() => subCategoryRemove(index)}>
                                         Delete
@@ -183,6 +193,35 @@ const AdminBookOperation = () => {
 
                     <input type="submit"/>
                 </form>
+
+
+            <div className="col-md-8">
+                <div>
+                    <h3>{"Delete book by id"}</h3>
+                </div>
+                <div className="input-group mb-3">
+                    <form>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder={"Enter book id"}
+                            value={bookId}
+                            onChange={updateBookId}
+                        />
+
+                        <div className="input-group-append">
+                            <button
+                                className="btn btn-outline-secondary"
+                                type="button"
+                                onClick={deleteBookById}
+                            >
+                                Delete book
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
 
 
 

@@ -5,6 +5,7 @@ import com.shop.onlineshop.model.entity.CategoryEntity;
 import com.shop.onlineshop.model.view.CategoryViewModel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CategoryService {
 //    void initCategories();

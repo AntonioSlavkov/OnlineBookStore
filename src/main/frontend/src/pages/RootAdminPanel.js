@@ -89,7 +89,7 @@ const RootAdminPanel = () => {
 
             <div className="col-md-8">
                 <div>
-                    <h3>{"Add user roleName"}</h3>
+                    <h3>{"Add user role"}</h3>
                 </div>
                 <div className="input-group mb-3">
                     <form>
@@ -127,7 +127,7 @@ const RootAdminPanel = () => {
 
             <div className="col-md-8">
                 <div>
-                    <h3>{"Delete user roleName"}</h3>
+                    <h3>{"Delete user role"}</h3>
                 </div>
                 <div className="input-group mb-3">
                     <form>

@@ -6,7 +6,7 @@ import UserApi from "../utils/api/UserApi";
 
 
 const Register = () => {
-    const {register, handleSubmit, errors, watch} = useForm()
+    const {register, handleSubmit, formState: { errors }, watch} = useForm()
     // const [message, setMessage] = useState("")
     const password = useRef()
     password.current = watch("password")
@@ -45,8 +45,9 @@ const Register = () => {
 
             <div>
                 <label>Username</label>
-                <input type="text" placeholder="Enter username" name="username"
-                       ref={register({
+
+                <input type="text" placeholder="Enter username"
+                      {...register("username", {
                            required: "Username input is required", minLength: {
                                value: 5,
                                message: "Username must be longer than 5 characters"
@@ -61,8 +62,8 @@ const Register = () => {
 
             <div>
                 <label>Password</label>
-                <input type="password" placeholder="Enter password" name="password"
-                       ref={register({
+                <input type="password" placeholder="Enter password"
+                       {...register("password", {
                            required: "Password input is required",
                            minLength: {
                                value: 5,
@@ -83,13 +84,14 @@ const Register = () => {
 
             <div>
                 <label>Confirm password</label>
-                <input type="password" placeholder="Confirm password" name="confirmPassword"
-                       ref={register({validate: value => value === password.current || "The passwords do not match"})}/>
+                <input type="password" placeholder="Confirm password"
+                       {...register("confirmPassword",
+                           {validate: value => value === password.current || "The passwords do not match"})}/>
             </div>
 
             <div>
                 <label>Email address</label>
-                <input type="email" placeholder="Enter email address" name="email" ref={register({
+                <input type="email" placeholder="Enter email address" {...register("email",{
                     required: "Your email address is required",
                     pattern: {
                         value: /\S+@\S+\.\S+/i,
@@ -102,7 +104,7 @@ const Register = () => {
 
             <div>
                 <label>First name</label>
-                <input type="text" placeholder="Enter first name" name="firstName" ref={register({
+                <input type="text" placeholder="Enter first name" {...register("firstName",{
                     required: "Your first name is required"
                 })}/>
             </div>
@@ -111,7 +113,7 @@ const Register = () => {
 
             <div>
                 <label>Last name</label>
-                <input type="text" placeholder="Enter last name" name="lastName" ref={register({
+                <input type="text" placeholder="Enter last name" {...register("lastName",{
                     required: "Your last name is required"
                 })}/>
 

@@ -11,10 +11,17 @@ const getBookById = async (id) => {
 }
 
 //TODO pictureUrls, subCategories are arrays. check how to add arays in js junctions
-const addBook = async (title, pages, language, description, price, pictureUrls, author, category, subCategories) => {
-    console.log(title)
-    console.log(pictureUrls)
-    console.log(subCategories)
+const addBook = async (title, pages, language, description, price, pictureUrls, author, mainCategory, subCategories) => {
+
+    console.log("title", title)
+    console.log("pages", pages)
+    console.log("language", language)
+    console.log("description", description)
+    console.log("price", price)
+    console.log("pictureUrls", pictureUrls)
+    console.log("author", author)
+    console.log("mainCategory", mainCategory)
+    console.log("subCategories", subCategories)
     return await axios.post(API_URL + "add", {
         title,
         pages,
@@ -23,7 +30,7 @@ const addBook = async (title, pages, language, description, price, pictureUrls, 
         price,
         pictureUrls,
         author,
-        category,
+        mainCategory,
         subCategories
     }).then(response => {
         console.log(response)

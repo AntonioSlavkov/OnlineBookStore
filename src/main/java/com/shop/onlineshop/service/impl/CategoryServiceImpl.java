@@ -50,7 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryEntity findByName(String name) {
         return categoryRepository
                 .findByCategory(name)
-                .orElseThrow(null);
+                .orElse(null);
     }
 
     @Override

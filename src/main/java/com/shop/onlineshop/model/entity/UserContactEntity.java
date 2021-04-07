@@ -21,4 +21,6 @@ public class UserContactEntity extends BaseEntity {
     private String city;
     @Column(name = "address")
     private String address;
+
+
 }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import AuthHeader from "./AuthHeader";
 
 const API_URL = 'http://localhost:8080/books/'
 
@@ -32,6 +33,10 @@ const addBook = async (title, pages, language, description, price, pictureUrls, 
         author,
         mainCategory,
         subCategories
+    }, {
+
+        headers: AuthHeader()
+
     }).then(response => {
         console.log(response)
     }).catch(error => {

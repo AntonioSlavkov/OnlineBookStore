@@ -9,4 +9,6 @@ public interface UserService {
     void registerUser(UserAddBindingModel userAddBindingModel);
 
     UserEntity findUserByUsername (String username);
+
+    void seedUser();
 }

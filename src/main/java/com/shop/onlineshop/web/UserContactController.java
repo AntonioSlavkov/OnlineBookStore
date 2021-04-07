@@ -6,17 +6,19 @@ import com.shop.onlineshop.model.view.UserContactViewModel;
 import com.shop.onlineshop.service.UserContactService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/contacts")
 @AllArgsConstructor
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class UserContactController {
     //TODO implement get, add and update.
     private final UserContactService userContactService;
 
     @GetMapping("/contact")
+    @PreAuthorize("hasRole('REGULAR') or hasRole('ADMIN') or hasRole('ROOT_ADMIN')")
     public UserContactViewModel getUserContact (@RequestParam String username) {
 
         return userContactService.getUserContacts(username);

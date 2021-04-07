@@ -1,5 +1,6 @@
 package com.shop.onlineshop.service.impl;
 
+import com.shop.onlineshop.exception.UserContactNotFoundException;
 import com.shop.onlineshop.mapper.UserContactAddMapper;
 import com.shop.onlineshop.mapper.UserContactViewMapper;
 import com.shop.onlineshop.model.binding.UserContactAddBindingModel;
@@ -11,6 +12,7 @@ import com.shop.onlineshop.repository.UserRepository;
 import com.shop.onlineshop.service.UserContactService;
 import com.shop.onlineshop.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,10 +39,19 @@ public class UserContactServiceImpl implements UserContactService {
         UserEntity user = userService
                 .findUserByUsername(userContactAddBindingModel.getUsername());
 
-        UserContactEntity userContactEntity = userContactAddMapper
+        UserContactEntity userContacts = userContactRepository
+                .findById(user.getUserContactEntity().getId())
+                .orElseThrow( () -> new UserContactNotFoundException("User contacts does not exist.", HttpStatus.NOT_FOUND));
+
+
+        UserContactEntity userContactBinding = userContactAddMapper
                 .userContactAddBindingToUserContactEntity(userContactAddBindingModel);
 
-        user.setUserContactEntity(userContactEntity);
+        userContacts.setPhoneNumber(userContactBinding.getPhoneNumber());
+        userContacts.setAddress(userContactBinding.getAddress());
+        userContacts.setCity(userContactBinding.getCity());
+
+        user.setUserContactEntity(userContacts);
         userRepository.save(user);
     }
 }

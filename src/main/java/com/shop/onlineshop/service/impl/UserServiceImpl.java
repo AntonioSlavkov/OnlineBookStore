@@ -50,4 +50,45 @@ public class UserServiceImpl implements UserService {
                 .findByUsername(username)
                 .orElseThrow( () -> new UsernameNotFoundException("Username with name " + username + " does not exist"));
     }
+
+    @Override
+    public void seedUser() {
+
+        if (userRepository.count() == 0) {
+            UserAddBindingModel userAddBindingModel = new UserAddBindingModel();
+            userAddBindingModel.setUsername("antonio");
+            userAddBindingModel.setPassword("qwert12345!");
+            userAddBindingModel.setEmail("antonio@mail.com");
+            userAddBindingModel.setFirstName("Antonio");
+            userAddBindingModel.setLastName("Slavkov");
+
+
+            UserEntity newUser = userAddMapper.userAddBindingToUserEntity(userAddBindingModel);
+            newUser.setPassword(passwordEncoder.encode(userAddBindingModel.getPassword()));
+
+            RoleEntity userRoles = roleRepository
+                    .findByRole(RoleName.REGULAR)
+                    .orElseThrow(() -> new IllegalStateException("REGULAR role not found. Please seed the roles."));
+
+            RoleEntity userAdmin = roleRepository
+                    .findByRole(RoleName.ADMIN)
+                    .orElseThrow(() -> new IllegalStateException("ADMIN role not found. Please seed the roles."));
+
+            RoleEntity userRootAdmin = roleRepository
+                    .findByRole(RoleName.ROOT_ADMIN)
+                    .orElseThrow(() -> new IllegalStateException("ROOT_ADMIN role not found. Please seed the roles."));
+
+            newUser.addRole(userRoles);
+            newUser.addRole(userAdmin);
+            newUser.addRole(userRootAdmin);
+
+            UserContactEntity userContactEntity = new UserContactEntity();
+            userContactEntity.setAddress("");
+            userContactEntity.setCity("");
+            userContactEntity.setPhoneNumber("");
+
+            newUser.setUserContactEntity(userContactEntity);
+            userRepository.save(newUser);
+        }
+    }
 }

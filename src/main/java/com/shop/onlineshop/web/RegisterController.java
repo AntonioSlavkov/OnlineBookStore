@@ -12,7 +12,7 @@ import javax.validation.Valid;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/users")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = "*")
 public class RegisterController {
 
     private final UserService userService;

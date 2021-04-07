@@ -1,12 +1,12 @@
 package com.shop.onlineshop.web;
 
+import com.shop.onlineshop.model.binding.UserContactAddBindingModel;
+import com.shop.onlineshop.model.message.MessageDto;
 import com.shop.onlineshop.model.view.UserContactViewModel;
 import com.shop.onlineshop.service.UserContactService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/contacts")
@@ -17,8 +17,15 @@ public class UserContactController {
     private final UserContactService userContactService;
 
     @GetMapping("/contact")
-    public UserContactViewModel getUserContact () {
+    public UserContactViewModel getUserContact (@RequestParam String username) {
 
-        return null;
+        return userContactService.getUserContacts(username);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Object> updateUserContact (@RequestBody UserContactAddBindingModel userContactAddBindingModel) {
+
+        userContactService.updateUserContacts(userContactAddBindingModel);
+        return ResponseEntity.ok().body(new MessageDto("Successfully updated user contacts"));
     }
 }

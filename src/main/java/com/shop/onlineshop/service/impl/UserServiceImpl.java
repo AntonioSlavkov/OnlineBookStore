@@ -3,6 +3,7 @@ package com.shop.onlineshop.service.impl;
 import com.shop.onlineshop.mapper.UserAddMapper;
 import com.shop.onlineshop.model.binding.UserAddBindingModel;
 import com.shop.onlineshop.model.entity.RoleEntity;
+import com.shop.onlineshop.model.entity.UserContactEntity;
 import com.shop.onlineshop.model.entity.UserEntity;
 import com.shop.onlineshop.model.entity.enums.RoleName;
 import com.shop.onlineshop.repository.RoleRepository;
@@ -33,6 +34,13 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new IllegalStateException("REGULAR role not found. Please seed the roles."));
 
         newUser.addRole(userRoles);
+
+        UserContactEntity userContactEntity = new UserContactEntity();
+        userContactEntity.setAddress("");
+        userContactEntity.setCity("");
+        userContactEntity.setPhoneNumber("");
+
+        newUser.setUserContactEntity(userContactEntity);
         userRepository.save(newUser);
     }
 

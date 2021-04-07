@@ -23,20 +23,25 @@ const login = async (username, password) => {
         username,
         password
     })
-        .then((response) => {
-            if (response.data.accessToken) {
-                localStorage.setItem("user", JSON.stringify(response.data))
+        .then(response => {
+            console.log(response)
+            if (response.data.token) {
+                localStorage.setItem("username", JSON.stringify(response.data))
+                console.log(localStorage.getItem("username"))
             }
             return response.data
+        })
+        .catch(error => {
+            console.log(error.response)
         })
 }
 
 const logout = () => {
-    localStorage.removeItem("user")
+    localStorage.removeItem("username")
 }
 
 const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem("user"))
+    return JSON.parse(localStorage.getItem("username"))
 }
 
 export default {

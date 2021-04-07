@@ -16,11 +16,9 @@ import javax.persistence.Table;
 public class UserContactEntity extends BaseEntity {
 
     @Column(name = "phone_number")
-    private Long phoneNumber;
+    private String phoneNumber;
     @Column(name = "city")
     private String city;
     @Column(name = "address")
     private String address;
-    @Column(name = "postal_code")
-    private Long postalCode;
 }

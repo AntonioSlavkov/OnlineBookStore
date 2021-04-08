@@ -23,7 +23,7 @@ import javax.crypto.SecretKey;
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AuthEntryPointJwt unauthorizedHandler;
@@ -43,7 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
@@ -61,10 +60,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/roles/all", "/roles/add", "roles/delete").hasRole("ROOT_ADMIN")
-                .antMatchers("/books/add", "/books/delete/{id}").hasRole("ADMIN")
-                .antMatchers("/contacts/contact", "/contacts/add", "/contacts/delete").hasRole("REGULAR")
-                .antMatchers("/**").permitAll();
+//                .antMatchers("/roles/all", "/roles/add", "roles/delete").hasRole("ROOT_ADMIN")
+//                .antMatchers("/books/add", "/books/delete/{id}").hasRole("ADMIN")
+//                .antMatchers("/contacts/contact", "/contacts/add", "/contacts/delete").hasRole("REGULAR")
+                .antMatchers("/**").permitAll().anyRequest().authenticated();
 
 //        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

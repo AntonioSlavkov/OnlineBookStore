@@ -1,6 +1,6 @@
 import './App.css';
 import Header from "./components/Header";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import UserApi from "./utils/api/UserApi";
 import {Link} from "react-router-dom";
 import {DropdownButton} from "react-bootstrap";
@@ -12,6 +12,7 @@ function App() {
     const [showRootAdminPanel, setRootAdminPanel] = useState(false)
     const [showProfile, setProfile] = useState(false)
     const [showCart, setCart] = useState(false)
+
 
     useEffect(() => {
 

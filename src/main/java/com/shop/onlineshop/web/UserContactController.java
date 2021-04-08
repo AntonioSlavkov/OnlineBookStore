@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @CrossOrigin(origins = "*")
 public class UserContactController {
-    //TODO implement get, add and update.
+
     private final UserContactService userContactService;
 
     @GetMapping("/contact")
-    @PreAuthorize("hasRole('REGULAR') or hasRole('ADMIN') or hasRole('ROOT_ADMIN')")
     public UserContactViewModel getUserContact (@RequestParam String username) {
 
         return userContactService.getUserContacts(username);

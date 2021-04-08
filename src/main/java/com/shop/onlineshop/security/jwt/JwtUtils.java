@@ -12,6 +12,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -31,7 +33,7 @@ public class JwtUtils {
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + tokenExpiration))
+                .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(tokenExpiration)))
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
     }

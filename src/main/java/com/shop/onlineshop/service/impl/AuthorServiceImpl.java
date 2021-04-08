@@ -17,34 +17,18 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
     private final AuthorViewMapper authorViewMapper;
     private final AuthorAddMapper authorAddMapper;
 
-//    @Override
-//    public void initAuthors() {
-//
-//        if (authorRepository.count() == 0) {
-//
-//            AuthorEntity rowling = new AuthorEntity("Joanne Rowling");
-//            authorRepository.save(rowling);
-//
-//            AuthorEntity tolkien = new AuthorEntity("John Ronald Reuel Tolkien");
-//            authorRepository.save(tolkien);
-//
-//            AuthorEntity goodKind = new AuthorEntity("Terry Goodkind");
-//            authorRepository.save(goodKind);
-//
-//        }
-//    }
-
     @Override
     public AuthorEntity findByName(String name) {
         return authorRepository
                 .findByAuthor(name)
-                .orElseThrow(null);
+                .orElse(null);
     }
 
     @Override

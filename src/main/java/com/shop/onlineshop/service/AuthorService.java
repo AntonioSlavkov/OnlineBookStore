@@ -18,4 +18,6 @@ public interface AuthorService {
     AuthorViewModel getAuthorById(Long id);
 
     void addAuthors(AuthorAddBindingModel authorAddBindingModel);
+
+    boolean existsByName (String name);
 }

@@ -28,7 +28,7 @@ public class LoginController {
     private final JwtUtils jwtUtils;
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser (@Valid @RequestBody UserLoginBindingModel userLoginBindingModel) {
+    public ResponseEntity<?> loginUser (@RequestBody UserLoginBindingModel userLoginBindingModel) {
 
 
         Authentication authentication = authenticationManager

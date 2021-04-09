@@ -19,4 +19,6 @@ public interface CategoryService {
     CategoryViewModel getCategoryById(long id);
 
     void addCategories(CategoryAddBindingModel categoryAddBindingModel);
+
+    boolean existByCategory (String name);
 }

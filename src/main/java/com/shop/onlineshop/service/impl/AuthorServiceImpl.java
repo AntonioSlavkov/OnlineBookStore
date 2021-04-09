@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 @Service
 @AllArgsConstructor
 
@@ -26,9 +28,11 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public AuthorEntity findByName(String name) {
+
         return authorRepository
                 .findByAuthor(name)
                 .orElse(null);
+//                .orElseThrow( () -> new AuthorNotFoundException("Author does not exist", NOT_FOUND));
     }
 
     @Override
@@ -49,7 +53,7 @@ public class AuthorServiceImpl implements AuthorService {
                 .authorEntityToAuthorView(authorRepository.findById(id)
                         .orElseThrow(() -> new AuthorNotFoundException(
                                 "Author does not exist",
-                                HttpStatus.NOT_FOUND)));
+                                NOT_FOUND)));
     }
 
     @Override
@@ -69,6 +73,11 @@ public class AuthorServiceImpl implements AuthorService {
 
 
 
+    }
+
+    @Override
+    public boolean existsByName(String name) {
+        return authorRepository.existsAuthorEntityByAuthor(name);
     }
 
 

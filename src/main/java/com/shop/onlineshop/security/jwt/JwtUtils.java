@@ -2,7 +2,6 @@ package com.shop.onlineshop.security.jwt;
 
 import com.shop.onlineshop.security.service.UserDetailsImpl;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.SignatureException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Value;

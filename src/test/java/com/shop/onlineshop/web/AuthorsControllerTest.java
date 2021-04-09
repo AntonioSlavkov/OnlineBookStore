@@ -26,19 +26,21 @@ public class AuthorsControllerTest {
     @Autowired
     private AuthorRepository authorRepository;
 
-    private long TEST_AUTHOR1_ID, TEST_AUTHOR2_ID;
-    private String TEST_AUTHOR_NAME = "Antonio", TEST_AUTHOR2_NAME = "Antonia";
+     long TEST_AUTHOR1_ID, TEST_AUTHOR2_ID;
+     String TEST_AUTHOR1_NAME = "Antonio", TEST_AUTHOR2_NAME = "Antonia";
+     int NON_EXISTING_AUTHOR = 66666;
+     AuthorEntity author1, author2;
 
     @BeforeEach
     public void setUp() {
         authorRepository.deleteAll();
 
-        AuthorEntity author1 = new AuthorEntity();
-        author1.setAuthor(TEST_AUTHOR_NAME);
+        author1 = new AuthorEntity();
+        author1.setAuthor(TEST_AUTHOR1_NAME);
         authorRepository.save(author1);
         TEST_AUTHOR1_ID = author1.getId();
 
-        AuthorEntity author2 = new AuthorEntity();
+        author2 = new AuthorEntity();
         author2.setAuthor(TEST_AUTHOR2_NAME);
         authorRepository.save(author2);
         TEST_AUTHOR2_ID = author2.getId();
@@ -56,7 +58,9 @@ public class AuthorsControllerTest {
 
     @Test
     public void testAuthorNotFound() throws Exception {
-        this.mockMvc.perform(get("/authors/222")).andExpect(status().isNotFound());
+        this.mockMvc
+                .perform(get("/authors/author/{id}", NON_EXISTING_AUTHOR))
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -64,6 +68,6 @@ public class AuthorsControllerTest {
         this.mockMvc
                 .perform(get("/authors/author/{id}", TEST_AUTHOR1_ID))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.author", is(TEST_AUTHOR_NAME)));
+                .andExpect(jsonPath("$.author.name", is(author1.getAuthor())));
     }
 }

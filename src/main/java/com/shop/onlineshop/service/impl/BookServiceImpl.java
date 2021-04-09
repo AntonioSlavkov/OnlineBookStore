@@ -40,89 +40,6 @@ public class BookServiceImpl implements BookService {
     private final BookAddMapper bookAddMapper;
     private final BookUpdateMapper bookUpdateMapper;
 
-//    @Override
-//    public void initBooks() {
-//
-//        if (bookRepository.count() == 0) {
-//
-//            AuthorEntity rowling = authorService.findByName("Joanne Rowling");
-//            AuthorEntity tolkien = authorService.findByName("John Ronald Reuel Tolkien");
-//            AuthorEntity goodkind = authorService.findByName("Terry Goodkind");
-//
-//            CategoryEntity fantasy = categoryService.findByName("Fantasy");
-//            CategoryEntity fiction = categoryService.findByName("Fiction");
-//            CategoryEntity romance = categoryService.findByName("Romance");
-//            CategoryEntity drama = categoryService.findByName("Drama");
-//            CategoryEntity thriller = categoryService.findByName("Thriller");
-//
-//            BookEntity harryPotter = new BookEntity(
-//                    "Harry Potter and the Goblet of Fire",
-//                    300,
-//                    "English",
-//                    "some description",
-//                    BigDecimal.valueOf(20.30)
-//            );
-//            harryPotter.setAuthor(rowling);
-//
-//            harryPotter.setMainCategory(fantasy);
-//            Set<CategoryEntity> harryPotterCategories = new HashSet<>();
-//            harryPotterCategories.add(drama);
-//            harryPotterCategories.add(thriller);
-//            harryPotterCategories.add(fiction);
-//            harryPotter.setSubCategories(harryPotterCategories);
-//
-//            List<PictureEntity> harryPotterPictureUrls = new ArrayList<>();
-//            harryPotterPictureUrls.add(new PictureEntity("https://images-na.ssl-images-amazon.com/images/I/81t2CVWEsUL.jpg"));
-//            harryPotter.setPictureUrls(harryPotterPictureUrls);
-//            bookRepository.save(harryPotter);
-//
-//            BookEntity lordOfTheRings = new BookEntity(
-//                    "The Lord of the Rings: The return of the kind",
-//                    600,
-//                    "English",
-//                    "some other description",
-//                    BigDecimal.valueOf(30.10)
-//            );
-//            lordOfTheRings.setAuthor(tolkien);
-//
-//            lordOfTheRings.setMainCategory(fantasy);
-//            Set<CategoryEntity> lordOfTheRingsCategories = new HashSet<>();
-//            lordOfTheRingsCategories.add(fiction);
-//            lordOfTheRingsCategories.add(drama);
-//            lordOfTheRings.setSubCategories(lordOfTheRingsCategories);
-//
-//            List<PictureEntity> lordOfTheRingsUrls = new ArrayList<>();
-//            lordOfTheRingsUrls.add(new PictureEntity("https://images-na.ssl-images-amazon.com/images/I/51M708KEH5L.jpg"));
-//            lordOfTheRingsUrls.add(new PictureEntity("https://images-na.ssl-images-amazon.com/images/I/41Cqh4aThYL.jpg"));
-//            lordOfTheRings.setPictureUrls(lordOfTheRingsUrls);
-//
-//            bookRepository.save(lordOfTheRings);
-//
-//            BookEntity swordOfTruth = new BookEntity(
-//                    "The sword of Truth: Warheart",
-//                    400,
-//                    "English",
-//                    "yet another description",
-//                    BigDecimal.valueOf(40.30)
-//            );
-//            swordOfTruth.setAuthor(goodkind);
-//
-//            swordOfTruth.setMainCategory(fantasy);
-//            Set<CategoryEntity> swordOfTruthCategories = new HashSet<>();
-//            swordOfTruthCategories.add(fiction);
-//            swordOfTruthCategories.add(drama);
-//            swordOfTruthCategories.add(romance);
-//            swordOfTruth.setSubCategories(swordOfTruthCategories);
-//
-//            List<PictureEntity> swordOfTruthPictureUrls = new ArrayList<>();
-//            swordOfTruthPictureUrls.add(new PictureEntity("https://images-na.ssl-images-amazon.com/images/I/512wolRCzHL.jpg"));
-//            swordOfTruthPictureUrls.add(new PictureEntity("https://images-na.ssl-images-amazon.com/images/I/317nwKiMuFL.jpg"));
-//            swordOfTruth.setPictureUrls(swordOfTruthPictureUrls);
-//
-//            bookRepository.save(swordOfTruth);
-//        }
-//    }
-
     @Override
     public List<BookViewModel> getAllBooks() {
 
@@ -150,7 +67,7 @@ public class BookServiceImpl implements BookService {
          */
         String author = bookAddBindingModel.getAuthor().getAuthor();
 
-        if (authorService.findByName(author).getAuthor() == null) {
+        if (!authorService.existsByName(author)) {
             authorService.saveAuthor(bookAddBindingModel.getAuthor());
         }
         book.setAuthor(authorService.findByName(author));
@@ -161,7 +78,7 @@ public class BookServiceImpl implements BookService {
          */
         String mainCategory = bookAddBindingModel.getMainCategory().getCategory();
 
-        if (categoryService.findByName(mainCategory).getCategory() == null) {
+        if (!categoryService.existByCategory(mainCategory)) {
             categoryService.saveCategory(bookAddBindingModel.getMainCategory());
         }
                 book.setMainCategory(categoryService.findByName(mainCategory));
@@ -176,7 +93,7 @@ public class BookServiceImpl implements BookService {
 
             for (CategoryEntity bindingSubCategory : bindingSubCategories) {
 
-                if (categoryService.findByName(bindingSubCategory.getCategory()) == null) {
+                if (!categoryService.existByCategory(bindingSubCategory.getCategory())) {
                     categoryService.saveCategory(bindingSubCategory);
                 }
                     subCategories.add(categoryService.findByName(bindingSubCategory.getCategory()));

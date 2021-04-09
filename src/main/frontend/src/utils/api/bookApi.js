@@ -33,11 +33,7 @@ const addBook = async (title, pages, language, description, price, pictureUrls, 
         author,
         mainCategory,
         subCategories
-    }, {
-
-        headers: AuthHeader()
-
-    }).then(response => {
+    } ).then(response => {
         console.log(response)
     }).catch(error => {
         console.log(error.response)

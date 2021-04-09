@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 @Service
 @AllArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
@@ -23,34 +25,12 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryViewMapper categoryViewMapper;
     private final CategoryAddMapper categoryAddMapper;
 
-//    @Override
-//    public void initCategories() {
-//
-//        if (categoryRepository.count() == 0) {
-//
-//            CategoryEntity fantasy = new CategoryEntity("Fantasy");
-//            categoryRepository.save(fantasy);
-//
-//            CategoryEntity fiction = new CategoryEntity("Fiction");
-//            categoryRepository.save(fiction);
-//
-//            CategoryEntity romance = new CategoryEntity("Romance");
-//            categoryRepository.save(romance);
-//
-//            CategoryEntity drama = new CategoryEntity("Drama");
-//            categoryRepository.save(drama);
-//
-//            CategoryEntity thriller = new CategoryEntity("Thriller");
-//            categoryRepository.save(thriller);
-//
-//        }
-//    }
 
     @Override
     public CategoryEntity findByName(String name) {
         return categoryRepository
                 .findByCategory(name)
-                .orElse(null);
+                .orElseThrow(() -> new CategoryNotFountException("Category does not exist", NOT_FOUND));
     }
 
     @Override
@@ -69,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         CategoryEntity category = categoryRepository
                 .findById(id)
-                .orElseThrow(() -> new CategoryNotFountException("This category does not exist", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CategoryNotFountException("This category does not exist", NOT_FOUND));
 
         return categoryViewMapper.categoryEntityToCategoryViewModel(category);
     }
@@ -86,5 +66,10 @@ public class CategoryServiceImpl implements CategoryService {
             CategoryEntity category = categoryAddMapper.categoryAddBindingToCategoryEntity(categoryBinding);
             categoryRepository.save(category);
         }
+    }
+
+    @Override
+    public boolean existByCategory(String name) {
+        return categoryRepository.existsCategoryEntityByCategory(name);
     }
 }

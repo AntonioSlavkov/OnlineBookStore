@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface AuthorRepository extends JpaRepository<AuthorEntity, Long> {
 
     Optional<AuthorEntity> findByAuthor (String author);
+
+    boolean existsAuthorEntityByAuthor(String author);
 }

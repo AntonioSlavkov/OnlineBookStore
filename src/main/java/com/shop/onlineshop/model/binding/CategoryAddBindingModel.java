@@ -11,5 +11,5 @@ import java.util.List;
 @Setter
 public class CategoryAddBindingModel {
 
-    private List<String> categories;
+    private String category;
 }

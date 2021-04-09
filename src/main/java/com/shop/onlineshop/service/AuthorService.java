@@ -17,7 +17,7 @@ public interface AuthorService {
 
     AuthorViewModel getAuthorById(Long id);
 
-    void addAuthors(AuthorAddBindingModel authorAddBindingModel);
+    AuthorEntity addAuthor(AuthorAddBindingModel authorAddBindingModel);
 
     boolean existsByName (String name);
 }

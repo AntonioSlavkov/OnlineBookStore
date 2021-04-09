@@ -11,5 +11,5 @@ import java.util.List;
 @Setter
 public class AuthorAddBindingModel {
 
-    private List<String> authors;
+    private String author;
 }

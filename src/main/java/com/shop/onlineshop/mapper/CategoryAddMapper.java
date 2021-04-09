@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CategoryAddMapper {
 
-    @Mapping(target = "category", source = "categories")
+//    @Mapping(target = "category", source = "categories")
     @Mapping(ignore = true, target = "id")
-    CategoryEntity categoryAddBindingToCategoryEntity (String categories);
+    CategoryEntity categoryAddBindingToCategoryEntity (String category);
 }

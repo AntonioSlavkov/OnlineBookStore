@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class AuthorViewModel {
 
-    private String name;
+    private String author;
 
 }
 

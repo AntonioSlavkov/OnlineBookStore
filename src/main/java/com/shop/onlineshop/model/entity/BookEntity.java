@@ -33,7 +33,7 @@ public class BookEntity extends BaseEntity {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PictureEntity> pictureUrls;
 
     @ManyToOne

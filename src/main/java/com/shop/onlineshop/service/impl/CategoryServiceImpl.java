@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
@@ -55,17 +56,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void addCategories(CategoryAddBindingModel categoryAddBindingModel) {
+    public void addCategory(CategoryAddBindingModel categoryAddBindingModel) {
 
-        for (String categoryBinding : categoryAddBindingModel.getCategories()) {
-
-            if (categoryRepository.findByCategory(categoryBinding).isPresent()) {
-                throw new CategoryAlreadyExistException("This category already exist.", HttpStatus.CONFLICT);
-            }
-
-            CategoryEntity category = categoryAddMapper.categoryAddBindingToCategoryEntity(categoryBinding);
-            categoryRepository.save(category);
+        if (existByCategory(categoryAddBindingModel.getCategory())) {
+            throw new CategoryAlreadyExistException("This category already exists", CONFLICT);
         }
+
+        CategoryEntity category = categoryAddMapper
+                .categoryAddBindingToCategoryEntity(categoryAddBindingModel
+                        .getCategory());
+        categoryRepository.save(category);
     }
 
     @Override

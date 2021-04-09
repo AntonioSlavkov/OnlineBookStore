@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
@@ -31,8 +32,7 @@ public class AuthorServiceImpl implements AuthorService {
 
         return authorRepository
                 .findByAuthor(name)
-                .orElse(null);
-//                .orElseThrow( () -> new AuthorNotFoundException("Author does not exist", NOT_FOUND));
+                .orElseThrow( () -> new AuthorNotFoundException("Author does not exist", NOT_FOUND));
     }
 
     @Override
@@ -57,19 +57,15 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void addAuthors(AuthorAddBindingModel authorAddBindingModel) {
+    public AuthorEntity addAuthor(AuthorAddBindingModel authorAddBindingModel) {
 
 
-        for (String authorBinding : authorAddBindingModel.getAuthors()) {
-
-
-            if (authorRepository.findByAuthor(authorBinding).isPresent()) {
-                throw new AuthorAlreadyExistException("Author already exist.", HttpStatus.CONFLICT);
-            }
-
-            AuthorEntity author = authorAddMapper.authorAddBindingToAuthorEntity(authorBinding);
-            authorRepository.save(author);
+        if (existsByName(authorAddBindingModel.getAuthor())) {
+            throw new AuthorAlreadyExistException("Author already exists", CONFLICT);
         }
+
+        AuthorEntity author = authorAddMapper.authorAddBindingToAuthorEntity(authorAddBindingModel.getAuthor());
+        return authorRepository.save(author);
 
 
 

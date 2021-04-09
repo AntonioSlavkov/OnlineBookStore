@@ -1,6 +1,7 @@
 package com.shop.onlineshop.web;
 
 import com.shop.onlineshop.model.binding.AuthorAddBindingModel;
+import com.shop.onlineshop.model.message.MessageDto;
 import com.shop.onlineshop.model.view.AuthorViewModel;
 import com.shop.onlineshop.service.AuthorService;
 import lombok.AllArgsConstructor;
@@ -30,12 +31,12 @@ public class AuthorController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<AuthorAddBindingModel> addAuthors (
+    public ResponseEntity<MessageDto> addAuthor(
             @Valid @RequestBody AuthorAddBindingModel authorAddBindingModel) {
 
 
-        authorService.addAuthors(authorAddBindingModel);
+        authorService.addAuthor(authorAddBindingModel);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(new MessageDto("Author successfully added"));
     }
 }

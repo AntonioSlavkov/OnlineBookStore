@@ -1,6 +1,5 @@
 package com.shop.onlineshop.model.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

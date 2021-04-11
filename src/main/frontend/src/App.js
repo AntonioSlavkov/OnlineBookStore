@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import React, {useState, useEffect, useContext} from "react";
 import UserApi from "./utils/api/UserApi";
 import {Link} from "react-router-dom";
-import {DropdownButton} from "react-bootstrap";
+import {Container, DropdownButton, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import DropdownItem from "react-bootstrap/DropdownItem";
 
 function App() {
@@ -35,77 +35,73 @@ function App() {
 
     return (
         <div className="App">
-            <nav className="navbar navbar-expand navbar-dark bg-dark">
+            <Container>
+                <Navbar className="navbar navbar-expand navbar-dark bg-dark">
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="mr-auto">
 
-                <Link to={"/"} className="navbar-brand">
-                    Index
-                </Link>
+                        <Nav.Link href="/">Index</Nav.Link>
+                        <Nav.Link href="/books">Books</Nav.Link>
 
-                <Link to={"/books"} className="navbar-brand">
-                    Books
-                </Link>
+                        {showCart && (
+                            <Nav.Link href="/cart">Profile</Nav.Link>
+                        )}
 
-                {showCart && (
-                    <Link to={"/cart"} className="navbar-brand">
-                        Cart
-                    </Link>
-
-                )}
-
-                {showProfile && (
-                    <Link to={"/profile"} className="navbar-brand">
-                        Profile
-                    </Link>
-                )}
+                        {showProfile && (
+                            <Nav.Link href="/profile">Profile</Nav.Link>
+                        )}
 
 
-                {showAdminPanel && (
-                    <DropdownButton title="Admin" className="navbar-brand">
+                        {showAdminPanel && (
+                            <NavDropdown title="Admin" id="collapsible-nav-dropdown">
+                                <NavDropdown.Item href="/adminPanel/Books">Books</NavDropdown.Item>
+                                <NavDropdown.Item href="/adminPanel/Orders">Orders</NavDropdown.Item>
+                            </NavDropdown>
+                        )}
 
-                        <DropdownItem as={Link} to="/adminPanel/Books">Books</DropdownItem>
-                        <DropdownItem as={Link} to="/adminPanel/Orders">Orders</DropdownItem>
-                    </DropdownButton>
-                )}
+                        {showRootAdminPanel && (
+                            <Nav.Link href="/rootAdminPanel">Root Admin</Nav.Link>
+                        )}
+                    </Nav>
+                    <Navbar >
+                        <Nav>
+                            {currentUser ? (
+                                <div className="navbar-nav ml-auto">
 
-                {showRootAdminPanel && (
-                    <Link to={"/rootAdminPanel"} className="navbar-brand">
-                        Root Admin
-                    </Link>
-                )}
+                                    <li className="nav-item">
+                                        <Nav.Link href="/profile">{currentUser.username}</Nav.Link>
+                                    </li>
+                                    <li className="nav-item">
 
+                                        <a href="/login" className="nav-link" onClick={logOut}>
+                                            LogOut
+                                        </a>
+                                    </li>
+                                </div>
+                            ) : (
+                                <div className="navbar-nav ml-auto">
+                                    <li className="nav-item">
 
-                {currentUser ? (
-                    <div className="navbar-nav ml-auto">
+                                        <Link to={"/login"} className="nav-link">
+                                            Login
+                                        </Link>
+                                    </li>
 
-                        <li className="nav-item">
-                            <Link to={"/profile"} className="nav-link">
-                                {currentUser.username}
-                            </Link>
-                        </li>
-                        <li className="nav-item">
+                                    <li className="navbar-nav ml-auto">
+                                        <Link to={"/register"} className="nav-link">
+                                            Register
+                                        </Link>
+                                    </li>
+                                </div>
+                            )}
+                        </Nav>
 
-                            <a href="/login" className="nav-link" onClick={logOut}>
-                                LogOut
-                            </a>
-                        </li>
-                    </div>
-                ) : (
-                    <div className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <Link to={"/login"} className="nav-link">
-                                Login
-                            </Link>
-                        </li>
+                    </Navbar>
+                    </Navbar.Collapse>
+                </Navbar>
+            </Container>
 
-                        <li className="nav-item">
-                            <Link to={"/register"} className="navbar-brand">
-                                Register
-                            </Link>
-                        </li>
-                    </div>
-                )}
-
-            </nav>
         </div>
     );
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/categories")
 @AllArgsConstructor
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:3000")
 public class CategoryController {
 
     private final CategoryService categoryService;

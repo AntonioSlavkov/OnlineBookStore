@@ -7,10 +7,10 @@ import UserApi from "../utils/api/UserApi";
 
 const Register = () => {
     const {register, handleSubmit, formState: { errors }, watch} = useForm()
-    // const [message, setMessage] = useState("")
+
     const password = useRef()
     password.current = watch("password")
-    // const [submitting, setSubmitting] = useState(false)
+
 
 
     const onSubmit = (data) => {
@@ -19,11 +19,6 @@ const Register = () => {
             .then(response => {
                 // console.log(response.headers.message)
             })
-
-       // setSubmitting(true)
-
-        // setSubmitting(false)
-
     }
 
 

@@ -4,7 +4,7 @@ import React from "react";
 const AdminOrderOperation = () => {
     return (
         <div>
-            koi se obajda
+           asd
         </div>
     )
 }

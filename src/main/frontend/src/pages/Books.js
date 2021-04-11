@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import bookApi from "../utils/api/bookApi";
-import {Image} from "react-bootstrap";
+import {Card, CardDeck, CardGroup, Image} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Container from 'react-bootstrap/Container';
 import {Link} from "react-router-dom";
@@ -26,26 +26,27 @@ const Books = ({match}) => {
             })
     }
 
-return (
+    return (
     books.map((book, index) => {
         const {imageUrl} = book.pictureUrls[0];
         return (
             <Container key={index} className={"container"}>
-                <div className={"col-md-3"}>
-                    <div className={"card mb-4 box-shadow"}>
-                        <h4>
-                            {book.title}
-                        </h4>
+                <CardDeck className="row row-cols-1 row-cols-sm-4">
+                    <div className="col">
+                        <Card className="mb-4 box-shadow">
+                            <Link to={`book/${book.id}`}>
+                                <Card.Img className="img-fluid" variant="top" src={imageUrl} thumbnail={true}/>
+                            </Link>
+                            <Card.Body>
+                                <Card.Title>{book.title}</Card.Title>
+                                <Card.Text>Price: {book.price}$</Card.Text>
 
-                        <Link to={`book/${book.id}`}>
-                            <Image className="card-img-top" src={imageUrl} thumbnail={true}/>
-                        </Link>
+                            </Card.Body>
+                        </Card>
 
-                        <p>
-                            {book.price}$
-                        </p>
                     </div>
-                </div>
+
+                </CardDeck>
             </Container>
         )
     })

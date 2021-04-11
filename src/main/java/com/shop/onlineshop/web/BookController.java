@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/books")
 @AllArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 public class BookController {
 
     private final BookService bookService;

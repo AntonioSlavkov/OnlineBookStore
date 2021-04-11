@@ -20,5 +20,5 @@ public interface BookService {
 
     void deleteBookById(Long id);
 
-    void updateBook(Long id, BookUpdateBindingModel bookUpdateBindingModel);
+//    void updateBook(Long id, BookUpdateBindingModel bookUpdateBindingModel);
 }

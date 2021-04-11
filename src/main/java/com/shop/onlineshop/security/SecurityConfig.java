@@ -65,8 +65,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/books/add", "/books/delete/{id}").hasRole("ADMIN")
 //                .antMatchers("/contacts/contact", "/contacts/add", "/contacts/delete").hasRole("REGULAR")
                 .antMatchers("/**").permitAll();
+//                .anyRequest().authenticated()
 
-//        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+
 //        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }

@@ -11,7 +11,6 @@ const getBookById = async (id) => {
     return await axios.get(API_URL + "book/" + id)
 }
 
-//TODO pictureUrls, subCategories are arrays. check how to add arays in js junctions
 const addBook = async (title, pages, language, description, price, pictureUrls, author, mainCategory, subCategories) => {
 
     console.log("title", title)
@@ -43,7 +42,7 @@ const addBook = async (title, pages, language, description, price, pictureUrls, 
         console.log(error.response)
     })
 }
-//TODO add id to the function
+
 const deleteBook = async (id) => {
     return await axios.delete(API_URL + "delete/" + id)
 }

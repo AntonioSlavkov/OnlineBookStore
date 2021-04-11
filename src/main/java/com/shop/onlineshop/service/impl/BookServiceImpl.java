@@ -118,25 +118,25 @@ public class BookServiceImpl implements BookService {
         bookRepository.deleteById(id);
     }
 
-    @Override
-    public void updateBook(Long id, BookUpdateBindingModel bookUpdateBindingModel) {
-        //TODO implement or delete the update method
-        BookEntity oldBook = bookRepository
-                .findById(id).orElseThrow( () -> new BookNotFoundException(
-                        "Book does not exist.",
-                        HttpStatus.NOT_FOUND));
-
-        BookEntity bookWithNewData = bookUpdateMapper.bookUpdateBindingToBookEntity(bookUpdateBindingModel);
-
-        oldBook.setAuthor(bookWithNewData.getAuthor());
-        oldBook.setMainCategory(bookWithNewData.getMainCategory());
-        oldBook.setSubCategories(bookWithNewData.getSubCategories());
-        oldBook.setPictureUrls(bookWithNewData.getPictureUrls());
-        oldBook.setDescription(bookWithNewData.getDescription());
-        oldBook.setLanguage(bookWithNewData.getLanguage());
-        oldBook.setPages(bookWithNewData.getPages());
-        oldBook.setPrice(bookWithNewData.getPrice());
-        oldBook.setTitle(bookWithNewData.getTitle());
-    }
+//    @Override
+//    public void updateBook(Long id, BookUpdateBindingModel bookUpdateBindingModel) {
+//        //TODO implement or delete the update method
+//        BookEntity oldBook = bookRepository
+//                .findById(id).orElseThrow( () -> new BookNotFoundException(
+//                        "Book does not exist.",
+//                        HttpStatus.NOT_FOUND));
+//
+//        BookEntity bookWithNewData = bookUpdateMapper.bookUpdateBindingToBookEntity(bookUpdateBindingModel);
+//
+//        oldBook.setAuthor(bookWithNewData.getAuthor());
+//        oldBook.setMainCategory(bookWithNewData.getMainCategory());
+//        oldBook.setSubCategories(bookWithNewData.getSubCategories());
+//        oldBook.setPictureUrls(bookWithNewData.getPictureUrls());
+//        oldBook.setDescription(bookWithNewData.getDescription());
+//        oldBook.setLanguage(bookWithNewData.getLanguage());
+//        oldBook.setPages(bookWithNewData.getPages());
+//        oldBook.setPrice(bookWithNewData.getPrice());
+//        oldBook.setTitle(bookWithNewData.getTitle());
+//    }
 
 }

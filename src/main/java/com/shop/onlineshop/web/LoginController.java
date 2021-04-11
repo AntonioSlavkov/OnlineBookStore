@@ -46,7 +46,7 @@ public class LoginController {
 
         return ResponseEntity.ok().body(new JwtResponse(jwt, userDetails.getUsername(), roles));
     }
-
+    //TODO not tested
     @PostMapping("/logout")
     public ResponseEntity<Void> logout (@AuthenticationPrincipal UserLoginBindingModel userLoginBindingModel) {
         SecurityContextHolder.clearContext();

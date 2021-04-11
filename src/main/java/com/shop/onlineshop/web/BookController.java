@@ -47,13 +47,13 @@ public class BookController {
         return ResponseEntity.ok().body(new MessageDto("Book deleted successfully."));
     }
 
-    @PutMapping("book/{id}")
-    public ResponseEntity<BookViewModel> updateBook (@PathVariable Long id,
-                                                    @Valid @RequestBody BookUpdateBindingModel bookUpdateBindingModel) {
-
-        bookService.updateBook(id, bookUpdateBindingModel);
-        return ResponseEntity.ok().build();
-
-    }
+//    @PutMapping("book/{id}")
+//    public ResponseEntity<BookViewModel> updateBook (@PathVariable Long id,
+//                                                    @Valid @RequestBody BookUpdateBindingModel bookUpdateBindingModel) {
+//
+//        bookService.updateBook(id, bookUpdateBindingModel);
+//        return ResponseEntity.ok().build();
+//
+//    }
 
 }

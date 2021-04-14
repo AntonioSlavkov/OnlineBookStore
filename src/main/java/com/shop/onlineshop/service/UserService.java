@@ -11,4 +11,6 @@ public interface UserService {
     UserEntity findUserByUsername (String username);
 
     void seedUser();
+
+    boolean existsByUsername (String username);
 }

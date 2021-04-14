@@ -29,7 +29,8 @@ public class UserEntity extends BaseEntity {
     @Column(name = "password")
     private String password;
 
-    //TODO: mapping table for roles maybe?
+//    @OneToMany
+//    private List<CartEntity> cart = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<RoleEntity> roles = new ArrayList<>();
@@ -46,5 +47,10 @@ public class UserEntity extends BaseEntity {
         this.roles.remove(roleEntity);
         return this;
     }
+
+//    public UserEntity addToCart (CartEntity cartEntity) {
+//        this.cart.add(cartEntity);
+//        return this;
+//    }
 
 }

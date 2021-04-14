@@ -10,6 +10,7 @@ import Book from "./Book";
 const Books = ({match}) => {
     const [books, setBooks] = useState([])
     const id = match.params.id
+    console.log(id)
 
     useEffect(() => {
         getBooks()

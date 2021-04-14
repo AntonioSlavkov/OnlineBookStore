@@ -14,9 +14,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 @RequestMapping("/books")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 public class BookController {
 
     private final BookService bookService;

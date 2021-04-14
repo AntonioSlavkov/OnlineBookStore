@@ -49,10 +49,24 @@ public class RoleServiceImpl implements RoleService {
                 new RoleEntity();
                 RoleEntity role;
                 switch (roleName.toString()) {
-                    case "REGULAR", "ADMIN", "ROOT_ADMIN" -> {
+
+                    case "REGULAR":
                         role = new RoleEntity(roleName);
                         roleRepository.save(role);
-                    }
+                        break;
+                    case "ADMIN":
+                        role = new RoleEntity(roleName);
+                        roleRepository.save(role);
+                        break;
+                    case "ROOT_ADMIN":
+                        role = new RoleEntity(roleName);
+                        roleRepository.save(role);
+                        break;
+
+//                    case "REGULAR", "ADMIN", "ROOT_ADMIN" -> {
+//                        role = new RoleEntity(roleName);
+//                        roleRepository.save(role);
+//                    }
                 }
 
             });
@@ -66,13 +80,14 @@ public class RoleServiceImpl implements RoleService {
         RoleEntity role = roleRepository.findByRole(roleName).orElseThrow( () -> new InvalidRoleException(
                 "Role is invalid", HttpStatus.BAD_REQUEST));
 
-        UserEntity user = userService
-                .findUserByUsername(userAddRoleBindingModel.getUsername());
-
-        if (!user.getUsername().equals(userAddRoleBindingModel.getUsername())) {
+        if (userAddRoleBindingModel.getUsername() == null) {
             throw new UsernameNotFoundException(
                     "User with username " + userAddRoleBindingModel.getUsername() + " does not exist");
         }
+
+        UserEntity user = userService
+                .findUserByUsername(userAddRoleBindingModel.getUsername());
+
 
         if (user.getRoles().contains(role)) {
             throw new RoleAlreadyExistException(

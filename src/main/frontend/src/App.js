@@ -45,7 +45,7 @@ function App() {
                         <Nav.Link href="/books">Books</Nav.Link>
 
                         {showCart && (
-                            <Nav.Link href="/cart">Profile</Nav.Link>
+                            <Nav.Link href="/cart">Cart</Nav.Link>
                         )}
 
                         {showProfile && (

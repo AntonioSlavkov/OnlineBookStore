@@ -3,13 +3,15 @@ import CartApi from "../utils/api/CartApi";
 import UserApi from "../utils/api/UserApi";
 import bookApi from "../utils/api/bookApi";
 import {Container, Table} from "react-bootstrap";
+import OrdersApi from "../utils/api/OrdersApi";
 
 const Cart = () => {
 
     const username = UserApi.getCurrentUser()
-    const [book, setBook] = useState([{}]);
+    const [book, setBook] = useState([]);
 
-    console.log(book)
+
+
     useEffect(() => {
         getUserCart()
     }, [])
@@ -29,20 +31,30 @@ const Cart = () => {
 
     const getBooksById = (bookId) => {
         bookApi.getBookById(bookId).then(response => {
-            // console.log(response)
+            console.log(response.data)
             setBook(oldBooks => [...oldBooks, response.data])
+
+        }).catch(error => {
+            console.log(error.response)
+        })
+    }
+
+    const addOrder = () => {
+        // setBook(book => book.filter( (_,i) => i !== 0))
+        console.log(book)
+        OrdersApi.addOrder(username.username, book)
+            .then(response => {
+            console.log(response)
         }).catch(error => {
             console.log(error.response)
         })
     }
 
 
-
-
     return (
         <div>
 
-            <Table striped={false} size="sm">
+            <Table responsive={true} striped={false} size="sm">
                 <thead>
                 <tr>
                     <th>#</th>
@@ -54,9 +66,6 @@ const Cart = () => {
                 {
                     book.map((theBook, index) => {
 
-                        if (index === 0) {
-                            return null;
-                        }
                         return (
                             <tr>
                                 <td>{index}</td>
@@ -68,7 +77,7 @@ const Cart = () => {
                 }
                 </tbody>
             </Table>
-            <button>Place order</button>
+            <button onClick={addOrder}>Place order</button>
 
         </div>
 

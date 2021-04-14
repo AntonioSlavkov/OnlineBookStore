@@ -21,7 +21,7 @@ public class OrderEntity extends BaseEntity {
     @OneToMany
     private List<BookEntity> books;
 
-    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private StatusName status;
 
 }

@@ -13,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderAddBindingModel {
 
-    private UserEntity user;
+    private String username;
     private List<BookEntity> books;
 }

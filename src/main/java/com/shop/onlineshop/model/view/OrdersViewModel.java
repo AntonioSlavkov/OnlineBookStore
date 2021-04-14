@@ -17,8 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class OrdersViewModel {
 
-
-
+    private long id;
     private UserEntity user;
     private List<BookEntity> books;
     private StatusName status;

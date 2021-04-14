@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/orders")
 @AllArgsConstructor
@@ -18,13 +20,13 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping("/all")
-    public OrdersViewModel getAllOrders () {
-        return null;
+    public List<OrdersViewModel> getAllOrders () {
+        return orderService.getAllOrders();
     }
 
     @GetMapping("/user")
     public OrdersViewModel getOrdersByUsername (@RequestParam String username) {
-        return null;
+        return orderService.getUserOrders(username);
     }
 
     @PostMapping("/add")

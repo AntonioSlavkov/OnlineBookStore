@@ -3,27 +3,36 @@ import axios from "axios";
 const API_URL = 'http://localhost:8080/orders/'
 
 const getOrders = async () => {
-    return await axios.get(API_URL + "/all")
+    return await axios.get(API_URL + "all")
 }
 
 const getOrdersByUser = async (username) => {
-    return await axios.get(API_URL + "/all", {
+    return await axios.get(API_URL + "all", {
 
         params: {
             username: username
         }
     })
 }
-const addOrder = async (user, books) => {
-    return await axios.post(API_URL + "/add", {
-        user,
+const addOrder = async (username, books) => {
+    console.log(username)
+    console.log(books)
+    return await axios.post(API_URL + "add", {
+        username,
         books
     })
 }
 const updateOrder = async (id, statusName) => {
-    return await axios.post(API_URL + "/add",{
+    return await axios.post(API_URL + "add",{
         id,
         statusName
 
     })
+}
+
+export default {
+    getOrders,
+    getOrdersByUser,
+    addOrder,
+    updateOrder
 }

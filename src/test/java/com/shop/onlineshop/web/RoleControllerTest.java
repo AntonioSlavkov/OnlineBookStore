@@ -10,6 +10,7 @@ import com.shop.onlineshop.model.binding.UserAddRoleBindingModel;
 import com.shop.onlineshop.model.entity.enums.RoleName;
 import com.shop.onlineshop.model.view.RoleViewModel;
 import com.shop.onlineshop.service.RoleService;
+import com.shop.onlineshop.service.UserService;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -34,6 +36,9 @@ public class RoleControllerTest {
 
     @MockBean
     private RoleService roleService;
+
+    @MockBean
+    private UserService userService;
 
     @Test
     public void testGetUserRoles() throws Exception {
@@ -49,6 +54,7 @@ public class RoleControllerTest {
 
     @Test
     public void testAddRoleToUser() throws Exception {
+        when(this.userService.existsByUsername(anyString())).thenReturn(true);
         doNothing().when(this.roleService).addRoleToUser((UserAddRoleBindingModel) any());
 
         UserAddRoleBindingModel userAddRoleBindingModel = new UserAddRoleBindingModel();
@@ -68,7 +74,29 @@ public class RoleControllerTest {
     }
 
     @Test
+    public void testAddRoleToUser2() throws Exception {
+        when(this.userService.existsByUsername(anyString())).thenReturn(false);
+        doNothing().when(this.roleService).addRoleToUser((UserAddRoleBindingModel) any());
+
+        UserAddRoleBindingModel userAddRoleBindingModel = new UserAddRoleBindingModel();
+        userAddRoleBindingModel.setUsername("janedoe");
+        userAddRoleBindingModel.setRoleName(RoleName.ROOT_ADMIN);
+        String content = (new ObjectMapper()).writeValueAsString(userAddRoleBindingModel);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/roles/add")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content);
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.roleController)
+                .build()
+                .perform(requestBuilder);
+        actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content()
+                        .string(Matchers.containsString("{\"message\":\"User with janedoe does not exist\"}")));
+    }
+
+    @Test
     public void testRemoveRoleToUser() throws Exception {
+        when(this.userService.existsByUsername(anyString())).thenReturn(true);
         doNothing().when(this.roleService).deleteRoleToUser(anyString(), (RoleName) any());
         MockHttpServletRequestBuilder deleteResult = MockMvcRequestBuilders.delete("/roles/delete");
         MockHttpServletRequestBuilder requestBuilder = deleteResult.param("roleName", String.valueOf(RoleName.ROOT_ADMIN))
@@ -80,6 +108,22 @@ public class RoleControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(Matchers.containsString("{\"message\":\"Role deleted successfully\"}")));
+    }
+
+    @Test
+    public void testRemoveRoleToUser2() throws Exception {
+        when(this.userService.existsByUsername(anyString())).thenReturn(false);
+        doNothing().when(this.roleService).deleteRoleToUser(anyString(), (RoleName) any());
+        MockHttpServletRequestBuilder deleteResult = MockMvcRequestBuilders.delete("/roles/delete");
+        MockHttpServletRequestBuilder requestBuilder = deleteResult.param("roleName", String.valueOf(RoleName.ROOT_ADMIN))
+                .param("username", "foo");
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.roleController)
+                .build()
+                .perform(requestBuilder);
+        actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content()
+                        .string(Matchers.containsString("{\"message\":\"User with foo does not exist\"}")));
     }
 }
 

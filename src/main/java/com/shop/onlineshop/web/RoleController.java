@@ -1,8 +1,6 @@
 package com.shop.onlineshop.web;
 
-import com.shop.onlineshop.model.binding.RoleAddBindingModel;
 import com.shop.onlineshop.model.binding.UserAddRoleBindingModel;
-import com.shop.onlineshop.model.binding.UserDeleteRoleBindingModel;
 import com.shop.onlineshop.model.entity.enums.RoleName;
 import com.shop.onlineshop.model.message.MessageDto;
 import com.shop.onlineshop.model.view.RoleViewModel;
@@ -24,13 +22,13 @@ public class RoleController {
     private final UserService userService;
 
     @GetMapping("/all")
-    public List<RoleViewModel> getUserRoles (@RequestParam String username) {
+    public List<RoleViewModel> getUserRoles(@RequestParam String username) {
 
         return roleService.getUserRoles(username);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addRoleToUser (@RequestBody UserAddRoleBindingModel userAddRoleBindingModel) {
+    public ResponseEntity<?> addRoleToUser(@RequestBody UserAddRoleBindingModel userAddRoleBindingModel) {
 
         if (!userService.existsByUsername(userAddRoleBindingModel.getUsername())) {
             return ResponseEntity.status(404).body(
@@ -43,7 +41,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> removeRoleToUser (@RequestParam String username, @RequestParam RoleName roleName) {
+    public ResponseEntity<?> removeRoleToUser(@RequestParam String username, @RequestParam RoleName roleName) {
 
         if (!userService.existsByUsername(username)) {
             return ResponseEntity.status(404).body(new MessageDto("User with " + username + " does not exist"));

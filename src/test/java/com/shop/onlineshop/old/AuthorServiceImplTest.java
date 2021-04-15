@@ -1,4 +1,4 @@
-package com.shop.onlineshop.service;
+package com.shop.onlineshop.old;
 
 import com.shop.onlineshop.exception.AuthorNotFoundException;
 import com.shop.onlineshop.mapper.AuthorAddMapper;

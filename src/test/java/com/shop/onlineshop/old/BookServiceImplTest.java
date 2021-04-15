@@ -1,8 +1,7 @@
-package com.shop.onlineshop.service;
+package com.shop.onlineshop.old;
 
 import com.shop.onlineshop.exception.BookNotFoundException;
 import com.shop.onlineshop.mapper.BookAddMapper;
-import com.shop.onlineshop.mapper.BookUpdateMapper;
 import com.shop.onlineshop.mapper.BookViewMapper;
 import com.shop.onlineshop.model.entity.AuthorEntity;
 import com.shop.onlineshop.model.entity.BookEntity;
@@ -11,6 +10,8 @@ import com.shop.onlineshop.model.entity.PictureEntity;
 import com.shop.onlineshop.model.view.AuthorViewModel;
 import com.shop.onlineshop.model.view.BookViewModel;
 import com.shop.onlineshop.repository.BookRepository;
+import com.shop.onlineshop.service.AuthorService;
+import com.shop.onlineshop.service.CategoryService;
 import com.shop.onlineshop.service.impl.BookServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,8 +51,7 @@ public class BookServiceImplTest {
     BookViewMapper bookViewMapper;
     @Mock
     BookAddMapper bookAddMapper;
-    @Mock
-    BookUpdateMapper bookUpdateMapper;
+
 
     BookEntity book1, book2;
     AuthorEntity author1, author2;
@@ -63,7 +63,7 @@ public class BookServiceImplTest {
     public void setUp () {
 
         bookServiceTest = new BookServiceImpl(this.authorService, this.categoryService,
-                this.bookRepository, this.bookViewMapper, this.bookAddMapper, this.bookUpdateMapper);
+                this.bookRepository, this.bookViewMapper, this.bookAddMapper);
 
 
         author1 = new AuthorEntity();

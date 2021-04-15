@@ -1,10 +1,9 @@
 package com.shop.onlineshop.service;
 
 import com.shop.onlineshop.model.binding.BookAddBindingModel;
-import com.shop.onlineshop.model.binding.BookUpdateBindingModel;
-import com.shop.onlineshop.model.entity.BookEntity;
+
 import com.shop.onlineshop.model.view.BookViewModel;
-import org.springframework.http.ResponseEntity;
+
 
 import java.util.List;
 

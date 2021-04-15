@@ -1,4 +1,4 @@
-package com.shop.onlineshop.web;
+package com.shop.onlineshop.old;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

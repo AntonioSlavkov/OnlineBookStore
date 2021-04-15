@@ -4,7 +4,6 @@ import com.shop.onlineshop.exception.InvalidRoleException;
 import com.shop.onlineshop.exception.RoleAlreadyExistException;
 import com.shop.onlineshop.mapper.RoleViewMapper;
 import com.shop.onlineshop.model.binding.UserAddRoleBindingModel;
-import com.shop.onlineshop.model.binding.UserDeleteRoleBindingModel;
 import com.shop.onlineshop.model.entity.RoleEntity;
 import com.shop.onlineshop.model.entity.UserEntity;
 import com.shop.onlineshop.model.entity.enums.RoleName;

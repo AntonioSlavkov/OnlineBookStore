@@ -29,6 +29,9 @@ const AdminBookOperation = () => {
         name: "subCategories",
     })
 
+    const [serverAddBookMessage, setServerAddBookMessage] = useState('')
+    const [serverDeleteBookMessage, setServerDeleteBookMessage] = useState('')
+
     const updateBookId = e => {
         setBookId(e.target.value)
     }
@@ -62,8 +65,10 @@ const AdminBookOperation = () => {
             data.author, data.mainCategory, data.subCategories)
             .then(response => {
                 console.log(response)
+                setServerAddBookMessage(response.data.message)
             }).catch(error => {
             console.log(error.response)
+            setServerAddBookMessage(error.response.data.message)
         })
 
     }
@@ -72,8 +77,10 @@ const AdminBookOperation = () => {
         bookApi.deleteBook(bookId)
             .then(response => {
                 console.log(response)
+                setServerDeleteBookMessage(response.data.message)
             }).catch(error => {
             console.log(error.response)
+            setServerDeleteBookMessage(error.response.data.message)
         })
     }
 
@@ -118,37 +125,37 @@ const AdminBookOperation = () => {
 
                     <label>Title</label>
                     <input type="text" placeholder="Title"
-                           {...register("title", {required: true, maxLength: 255})} />
+                           {...register("title", {required: "Title field is required", maxLength: 255})} />
                     {getErrorMessage(errors, "title")}
 
                     <label>Number of pages</label>
                     <input type="number" placeholder="Pages"
-                           {...register("pages", {required: true, maxLength: 3000})} />
+                           {...register("pages", {required: "Number of pages is required", maxLength: 3000})} />
                     {getErrorMessage(errors, "pages")}
 
                     <label>Language</label>
                     <input type="text" placeholder="Language"
-                           {...register("language", {required: true})} />
+                           {...register("language", {required: "Language is required"})} />
                     {getErrorMessage(errors, "language")}
 
                     <label>Price</label>
                     <input type="number" placeholder="Price"
-                           {...register("price", {required: true, min: 0})} />
+                           {...register("price", {required: "Price is required", min: 0})} />
                     {getErrorMessage(errors, "price")}
 
                     <label>Main Category</label>
                     <input type="text" placeholder="Main Category"
-                           {...register("mainCategory", {required: true})} />
+                           {...register("mainCategory", {required: "Main category is required"})} />
                     {getErrorMessage(errors, "mainCategory")}
 
                     <label>Author</label>
                     <input type="text" placeholder="Author"
-                           {...register("author", {required: true})}/>
+                           {...register("author", {required: "Author is required"})}/>
                     {getErrorMessage(errors, "author")}
 
                     <label>Description</label>
                     <textarea {...register("description",
-                        {required: true})} />
+                        {required: "Book description is required"})} />
                     {getErrorMessage(errors, "description")}
 
                     <ul>
@@ -156,7 +163,8 @@ const AdminBookOperation = () => {
                             return (
                                 <li key={item.id}>
                                     <input name={`pictureUrls[${index}].imageUrl}`}
-                                           {...register(`pictureUrls.${index}.imageUrl`)}
+                                           {...register(`pictureUrls.${index}.imageUrl`,
+                                               {required: "Picture url is required"})}
                                     />
                                     <button type="button" onClick={() => pictureUrlRemove(index)}>
                                         Delete
@@ -170,13 +178,15 @@ const AdminBookOperation = () => {
                     }}>
                         Append link
                     </button>
+                    {getErrorMessage(errors, "pictureUrls")}
 
                     <ul>
                         {subCategoryFields.map((secondItem, index) => {
                             return (
                                 <li key={secondItem.id}>
                                     <input name={`subCategories[${index}].category}`}
-                                           {...register(`subCategories.${index}.category`)}
+                                           {...register(`subCategories.${index}.category`,
+                                               {required: "Sub categories is required"})}
                                     />
                                     <button type="button" onClick={() => subCategoryRemove(index)}>
                                         Delete
@@ -191,8 +201,12 @@ const AdminBookOperation = () => {
                         Append category
                     </button>
 
+                    {getErrorMessage(errors, "subCategories")}
+
                     <input type="submit"/>
                 </form>
+
+            {serverAddBookMessage && <h2>{serverAddBookMessage}</h2>}
 
 
             <div className="col-md-8">
@@ -222,6 +236,9 @@ const AdminBookOperation = () => {
 
                 </div>
             </div>
+
+            {serverDeleteBookMessage && <h2>{serverDeleteBookMessage}</h2>}
+
 
 
 

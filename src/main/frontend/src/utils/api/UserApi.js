@@ -11,10 +11,6 @@ const register = async (username, email, password, firstName, lastName) => {
         password,
         firstName,
         lastName
-    }).then(response => {
-        console.log(response)
-    }).catch(error => {
-        console.log(error.response)
     })
 }
 

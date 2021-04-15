@@ -118,6 +118,11 @@ public class BookServiceImpl implements BookService {
         bookRepository.deleteById(id);
     }
 
+    @Override
+    public boolean existsByBookTitle(String title) {
+        return bookRepository.existsByTitle(title);
+    }
+
 //    @Override
 //    public void updateBook(Long id, BookUpdateBindingModel bookUpdateBindingModel) {
 //        //TODO implement or delete the update method

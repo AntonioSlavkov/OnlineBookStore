@@ -15,15 +15,13 @@ const getOrdersByUser = async (username) => {
     })
 }
 const addOrder = async (username, books) => {
-    console.log(username)
-    console.log(books)
     return await axios.post(API_URL + "add", {
         username,
         books
     })
 }
 const updateOrder = async (id, statusName) => {
-    return await axios.post(API_URL + "add",{
+    return await axios.post(API_URL + "update",{
         id,
         statusName
 

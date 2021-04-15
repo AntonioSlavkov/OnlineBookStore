@@ -20,6 +20,14 @@ public class RegisterController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser (@Valid @RequestBody UserAddBindingModel userAddBindingModel) {
 
+        if (userService.existsByUsername(userAddBindingModel.getUsername())) {
+            return ResponseEntity.status(403).body(new MessageDto("This username is already taken"));
+        }
+
+        if (userService.existsByEmail(userAddBindingModel.getEmail())) {
+            return ResponseEntity.status(403).body(new MessageDto("This email is already taken"));
+        }
+
         userService.registerUser(userAddBindingModel);
         return ResponseEntity.ok().body(new MessageDto("User registered Successfully"));
     }

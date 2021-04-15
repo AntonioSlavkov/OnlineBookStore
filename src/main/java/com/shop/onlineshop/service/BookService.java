@@ -20,5 +20,7 @@ public interface BookService {
 
     void deleteBookById(Long id);
 
+    boolean existsByBookTitle (String title);
+
 //    void updateBook(Long id, BookUpdateBindingModel bookUpdateBindingModel);
 }

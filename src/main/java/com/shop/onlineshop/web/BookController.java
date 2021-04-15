@@ -36,6 +36,11 @@ public class BookController {
     @PostMapping("/add")
     public ResponseEntity<Object> addBook (@Valid @RequestBody BookAddBindingModel bookAddBindingModel) {
 
+        if (bookService.existsByBookTitle(bookAddBindingModel.getTitle())) {
+            return ResponseEntity.status(403).body(
+                    new MessageDto("Book with title " + bookAddBindingModel.getTitle() + " already exists."));
+        }
+
         bookService.addBook(bookAddBindingModel);
         return ResponseEntity.ok().body(new MessageDto("Book added successfully."));
     }

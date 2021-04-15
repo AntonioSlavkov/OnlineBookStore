@@ -13,15 +13,15 @@ const getBookById = async (id) => {
 
 const addBook = async (title, pages, language, description, price, pictureUrls, author, mainCategory, subCategories) => {
 
-    console.log("title", title)
-    console.log("pages", pages)
-    console.log("language", language)
-    console.log("description", description)
-    console.log("price", price)
-    console.log("pictureUrls", pictureUrls)
-    console.log("author", author)
-    console.log("mainCategory", mainCategory)
-    console.log("subCategories", subCategories)
+    // console.log("title", title)
+    // console.log("pages", pages)
+    // console.log("language", language)
+    // console.log("description", description)
+    // console.log("price", price)
+    // console.log("pictureUrls", pictureUrls)
+    // console.log("author", author)
+    // console.log("mainCategory", mainCategory)
+    // console.log("subCategories", subCategories)
     return await axios.post(API_URL + "add", {
         title,
         pages,
@@ -36,10 +36,6 @@ const addBook = async (title, pages, language, description, price, pictureUrls, 
 
         headers: AuthHeader()
 
-    }).then(response => {
-        console.log(response)
-    }).catch(error => {
-        console.log(error.response)
     })
 }
 

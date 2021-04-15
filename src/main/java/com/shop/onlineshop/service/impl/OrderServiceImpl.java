@@ -10,12 +10,14 @@ import com.shop.onlineshop.model.entity.enums.StatusName;
 import com.shop.onlineshop.model.view.OrdersViewModel;
 import com.shop.onlineshop.repository.OrderRepository;
 import com.shop.onlineshop.repository.UserRepository;
+import com.shop.onlineshop.service.CartService;
 import com.shop.onlineshop.service.OrderService;
 import com.shop.onlineshop.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -26,8 +28,10 @@ public class OrderServiceImpl implements OrderService {
     private final UserService userService;
     private final OrderAddMapper orderAddMapper;
     private final OrderViewMapper orderViewMapper;
+    private final CartService cartService;
 
     @Override
+    @Transactional
     public void addOrder(OrderAddBindingModel orderAddBindingModel) {
 
 
@@ -39,6 +43,8 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(StatusName.NEW);
 
         orderRepository.save(order);
+
+        cartService.deleteUserCart(user.getId());
     }
 
     @Override

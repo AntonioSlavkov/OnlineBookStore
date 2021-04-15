@@ -11,7 +11,7 @@ const Profile = () => {
     const [city, setCity] = useState()
     const [address, setAddress] = useState()
     const {register, handleSubmit, formState: { errors } } = useForm()
-    console.log(currentUser.username)
+    const [serverMessage, setServerMessage] = useState('')
 
     useEffect(() => {
         getUserContactInformation()
@@ -34,6 +34,7 @@ const Profile = () => {
         UserContactApi.updateUserContactInformation(data.phoneNumber, data.city, data.address, currentUser.username)
             .then(response => {
                 console.log(response)
+                setServerMessage(response.data.message)
             }).catch(error => {
             console.log(error)
         })
@@ -55,10 +56,10 @@ const Profile = () => {
                 <strong>{currentUser.username}</strong> Profile
             </h3>
 
-            <p>
-                <strong>Token:</strong> {currentUser.token.substring(0, 20)} ...{" "}
-                {currentUser.token.substr(currentUser.token.length - 20)}
-            </p>
+            {/*<p>*/}
+            {/*    <strong>Token:</strong> {currentUser.token.substring(0, 20)} ...{" "}*/}
+            {/*    {currentUser.token.substr(currentUser.token.length - 20)}*/}
+            {/*</p>*/}
             <Container className={"container"}>
                 <div className={"col-md-3"}>
                     <div className={"card mb-4 box-shadow"}>
@@ -90,6 +91,8 @@ const Profile = () => {
 
                 <input type="submit"/>
             </form>
+
+            {serverMessage && <h2>{serverMessage}</h2>}
 
         </div>
     )

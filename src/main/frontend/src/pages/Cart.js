@@ -79,6 +79,7 @@ const Cart = () => {
             </Table>
             <button onClick={addOrder}>Place order</button>
 
+
         </div>
 
     )

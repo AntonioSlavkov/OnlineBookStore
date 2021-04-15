@@ -12,6 +12,7 @@ const Book = () => {
     console.log(id)
     const [book, setBook] = useState([])
     const username = UserApi.getCurrentUser()
+    const [addBookToCartServerMessage, setAddBookToCartServerMessage] = useState('')
     console.log(username.username)
 
     useEffect(() => {
@@ -31,6 +32,7 @@ const Book = () => {
     const addBookToUserCart = () => {
         CartApi.addBookToCart(book.id, username.username).then(response => {
             console.log(response)
+            setAddBookToCartServerMessage(response.data.message)
         }).catch(error => {
             console.log(error.response)
         })
@@ -85,7 +87,7 @@ const Book = () => {
             </div>
 
             <Button onClick={addBookToUserCart}>Add to Cart</Button>
-
+            {addBookToCartServerMessage && <h2>{addBookToCartServerMessage}</h2>}
 
         </div>
     )

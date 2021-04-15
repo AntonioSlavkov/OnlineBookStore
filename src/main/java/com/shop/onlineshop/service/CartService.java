@@ -11,4 +11,6 @@ public interface CartService {
     List<CartViewModel> getUserCart(String username);
 
     void addBookToUserCart(AddBookToUserCart addBookToUserCart);
+
+    void deleteUserCart(long id);
 }

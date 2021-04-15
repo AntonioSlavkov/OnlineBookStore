@@ -96,4 +96,11 @@ public class UserServiceImpl implements UserService {
     public boolean existsByUsername(String username) {
         return userRepository.existsUserEntityByUsername(username);
     }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsUserEntityByEmail(email);
+    }
+
+
 }

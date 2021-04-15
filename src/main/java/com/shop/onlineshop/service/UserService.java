@@ -13,4 +13,6 @@ public interface UserService {
     void seedUser();
 
     boolean existsByUsername (String username);
+
+    boolean existsByEmail(String email);
 }

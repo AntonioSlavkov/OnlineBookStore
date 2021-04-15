@@ -7,6 +7,7 @@ import com.shop.onlineshop.model.entity.enums.RoleName;
 import com.shop.onlineshop.model.message.MessageDto;
 import com.shop.onlineshop.model.view.RoleViewModel;
 import com.shop.onlineshop.service.RoleService;
+import com.shop.onlineshop.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.List;
 public class RoleController {
 
     private final RoleService roleService;
+    private final UserService userService;
 
     @GetMapping("/all")
     public List<RoleViewModel> getUserRoles (@RequestParam String username) {
@@ -30,6 +32,11 @@ public class RoleController {
     @PostMapping("/add")
     public ResponseEntity<?> addRoleToUser (@RequestBody UserAddRoleBindingModel userAddRoleBindingModel) {
 
+        if (!userService.existsByUsername(userAddRoleBindingModel.getUsername())) {
+            return ResponseEntity.status(404).body(
+                    new MessageDto("User with " + userAddRoleBindingModel.getUsername() + " does not exist"));
+        }
+
         roleService.addRoleToUser(userAddRoleBindingModel);
 
         return ResponseEntity.ok().body(new MessageDto("Role Added successfully"));
@@ -37,6 +44,10 @@ public class RoleController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<?> removeRoleToUser (@RequestParam String username, @RequestParam RoleName roleName) {
+
+        if (!userService.existsByUsername(username)) {
+            return ResponseEntity.status(404).body(new MessageDto("User with " + username + " does not exist"));
+        }
 
         roleService.deleteRoleToUser(username, roleName);
 

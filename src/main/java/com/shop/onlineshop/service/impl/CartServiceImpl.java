@@ -56,4 +56,9 @@ public class CartServiceImpl implements CartService {
         cartRepository.save(cart);
 
     }
+
+    @Override
+    public void deleteUserCart(long id) {
+        cartRepository.deleteByUserId(id);
+    }
 }

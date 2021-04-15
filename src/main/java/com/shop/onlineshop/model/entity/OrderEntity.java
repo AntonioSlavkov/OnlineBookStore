@@ -18,7 +18,7 @@ public class OrderEntity extends BaseEntity {
     @ManyToOne
     private UserEntity user;
 
-    @OneToMany
+    @ManyToMany
     private List<BookEntity> books;
 
     @Enumerated(EnumType.STRING)

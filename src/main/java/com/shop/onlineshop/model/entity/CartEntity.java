@@ -16,4 +16,5 @@ public class CartEntity extends BaseEntity {
 
     private Long bookId;
     private Long userId;
+
 }

@@ -3,8 +3,6 @@ import RoleApi from "../utils/api/RoleApi";
 import SearchUserRoles from "../components/SearchUserRoles";
 
 
-
-
 const RootAdminPanel = () => {
 
     const [userRoles, setUserRoles] = useState([])
@@ -21,7 +19,7 @@ const RootAdminPanel = () => {
             role: "ROOT_ADMIN"
         }
     ])
-    console.log(allRoles)
+    const [serverMessage, setServerMessage] = useState('')
 
     useEffect(() => {
         getRoles()
@@ -43,7 +41,6 @@ const RootAdminPanel = () => {
     const getRoles = () => {
 
         RoleApi.getUserRoles(searchUser).then(response => {
-            console.log(response)
             setUserRoles(response.data)
             console.log(userRoles)
         }).catch(error => {
@@ -54,8 +51,9 @@ const RootAdminPanel = () => {
     const deleteRole = () => {
         RoleApi.deleteUserRole(searchUser, roleName)
             .then(response => {
-            console.log(response)
-        }).catch(error => {
+                console.log(response)
+                setServerMessage(response.data.message)
+            }).catch(error => {
             console.log(error.response)
         })
     }
@@ -63,9 +61,11 @@ const RootAdminPanel = () => {
     const addRole = () => {
         RoleApi.addRoleToUser(searchUser, roleName)
             .then(response => {
-            console.log(response)
-        }).catch(error => {
+                console.log(response)
+                setServerMessage(response.data.message)
+            }).catch(error => {
             console.log(error.response)
+            setServerMessage(error.response.data.message)
         })
     }
 
@@ -121,8 +121,8 @@ const RootAdminPanel = () => {
                     </form>
 
                 </div>
-            </div>
 
+            </div>
 
 
             <div className="col-md-8">
@@ -159,13 +159,11 @@ const RootAdminPanel = () => {
                     </form>
 
                 </div>
+
+
             </div>
 
-
-
-
-
-
+            {serverMessage && <h2>{serverMessage}</h2>}
         </div>
 
     )

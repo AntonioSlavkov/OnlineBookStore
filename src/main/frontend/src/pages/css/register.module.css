@@ -1,0 +1,20 @@
+.register-styling {
+    max-width: 500px;
+    margin: 0 auto;
+    padding-left: 250px;
+}
+
+.error-message {
+    color: #bf164c;
+
+}
+
+.error-message::before {
+    display: inline;
+    content: "⚠ ";
+}
+
+.register-error-styling {
+    color: darkgreen;
+    padding-left: 600px;
+}

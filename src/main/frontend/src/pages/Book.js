@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react"
 import bookApi from "../utils/api/bookApi";
 import {Button, Table} from "react-bootstrap";
-import BookAddToCartContext from "../components/BookAddToCartContext";
 import {useParams} from "react-router";
 import CartApi from "../utils/api/CartApi";
 import UserApi from "../utils/api/UserApi";
@@ -60,13 +59,12 @@ const Book = () => {
         padding-top: 10px;
     `
 
-    const BookServerMessageHeaderTwo = styled.h2`
+    const BookServerMessageHeaderTwoForBook = styled.h2`
         padding-top: 10px;
         text-align: center;
         color: green;
     `
 
-//TODO render the other properties of the book
     return (
 
         <div className="container">
@@ -122,7 +120,7 @@ const Book = () => {
                 <Button variant={"primary"} onClick={addBookToUserCart}>Add to Cart</Button>
             </AddToCardDiv>
 
-            {addBookToCartServerMessage && <BookServerMessageHeaderTwo>{addBookToCartServerMessage}</BookServerMessageHeaderTwo>}
+            {addBookToCartServerMessage && <BookServerMessageHeaderTwoForBook>{addBookToCartServerMessage}</BookServerMessageHeaderTwoForBook>}
 
         </div>
     )

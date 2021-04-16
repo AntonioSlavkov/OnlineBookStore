@@ -3,6 +3,7 @@ import Input from "react-validation/build/input";
 import UserApi from "../utils/api/UserApi";
 import CheckButton from "react-validation/build/button";
 import Form from "react-validation/build/form";
+import styles from "./css/login.module.css";
 
 
 const required = (value) => {
@@ -65,10 +66,11 @@ const Login = (props) => {
         }
     }
 
-    return (
-        <div className="col-md-12">
 
-            <Form onSubmit={handleLogin} ref={form}>
+    return (
+        <div>
+
+            <Form className={styles["login-styling"]} onSubmit={handleLogin} ref={form}>
 
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
@@ -94,12 +96,14 @@ const Login = (props) => {
                 </div>
 
                 <div className="form-group">
+
                     <button className="btn btn-primary btn-block" disabled={loading}>
                         {loading && (
                             <span className="spinner-border spinner-border-sm"/>
                         )}
                         <span>Login</span>
                     </button>
+
                 </div>
 
                 {message && (
@@ -109,8 +113,10 @@ const Login = (props) => {
                         </div>
                     </div>
                 )}
-                <CheckButton style={{ display: "none" }} ref={checkBtn}/>
+                    <CheckButton style={{ display: "none" }} ref={checkBtn}/>
+
             </Form>
+
         </div>
 
 

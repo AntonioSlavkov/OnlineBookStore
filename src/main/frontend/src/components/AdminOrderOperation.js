@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import OrdersApi from "../utils/api/OrdersApi";
 import UserApi from "../utils/api/UserApi";
-import {Container, Table} from "react-bootstrap";
+import {Button, Container, Table} from "react-bootstrap";
+import styles from "./AdminOrderOperation.module.css"
 
 
 const AdminOrderOperation = () => {
@@ -12,6 +13,9 @@ const AdminOrderOperation = () => {
     const [searchedUserOrder, setSearchedUserOrder] = useState([])
     const [statusName, setStatusName] = useState()
     const [orderId, setOrderId] = useState()
+    const [getUserOrderServerMessage, setGetUserOrderServerMessage] = useState('')
+    const [getOrderIdServerMessage, setGetOrderIdServerMessage] = useState('')
+    console.log(getOrderIdServerMessage)
 
     const updateStatusName = e => {
         setStatusName(e.target.value)
@@ -44,6 +48,7 @@ const AdminOrderOperation = () => {
             setSearchedUserOrder(response.data)
         }).catch(error => {
             console.log(error.response)
+            setGetUserOrderServerMessage(error.response.data.message)
         })
     }
 
@@ -52,6 +57,7 @@ const AdminOrderOperation = () => {
             console.log(response)
         }).catch(error => {
             console.log(error.response)
+            setGetOrderIdServerMessage(error.response.data.message)
         })
     }
 
@@ -60,6 +66,8 @@ const AdminOrderOperation = () => {
         <div>
 
             <Container>
+
+                <h1>All orders</h1>
                 <Table>
                     <thead>
                     <tr>
@@ -100,14 +108,14 @@ const AdminOrderOperation = () => {
 
             <Container>
                 <div>
-                    <h3>Show user order</h3>
+                    <h3 className={styles["header-three-style"]}>Show user contact details</h3>
                 </div>
 
                 <input type="text"
                        placeholder="Enter username"
                        value={searchUserForOrder}
                        onChange={updateSearchUserForOrder}/>
-                <button type="button" onClick={getOrdersByUser}>Search</button>
+                <Button variant={"primary"} type="button" onClick={getOrdersByUser}>Search</Button>
 
                 <Table>
                     <thead>
@@ -148,10 +156,12 @@ const AdminOrderOperation = () => {
                 </Table>
             </Container>
 
+            {getUserOrderServerMessage && <h2>{getUserOrderServerMessage}</h2>}
+
 
             <Container>
                 <div>
-                    <h3>Update order status</h3>
+                    <h3 className={styles["header-three-style"]}>Update order status</h3>
                 </div>
 
                 <input type="text"
@@ -168,10 +178,11 @@ const AdminOrderOperation = () => {
 
                 </label>
 
-                <button type="button" onClick={updateOrder}>Update</button>
+                <Button variant={"primary"} type="button" onClick={updateOrder}>Update</Button>
 
             </Container>
 
+            {getOrderIdServerMessage && <h2>{getOrderIdServerMessage}</h2>}
 
         </div>
     )

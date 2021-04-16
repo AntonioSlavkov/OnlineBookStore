@@ -1,7 +1,8 @@
 import React from "react";
+import {Button} from "react-bootstrap";
 
 function SearchUserRoles(props) {
-    return <div className="col-md-8">
+    return <div className="col-md-4">
         <div>
             <h3>{props.title}</h3>
         </div>
@@ -14,13 +15,13 @@ function SearchUserRoles(props) {
                 onChange={props.onChange}
             />
             <div className="input-group-append">
-                <button
-                    className="btn btn-outline-secondary"
+                <Button
+                    variant={"primary"}
                     type="button"
                     onClick={props.onClick}
                 >
                     Search
-                </button>
+                </Button>
             </div>
         </div>
     </div>;

@@ -2,6 +2,8 @@ import React, {useRef, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {ErrorMessage} from '@hookform/error-message';
 import UserApi from "../utils/api/UserApi";
+import styled from "styled-components";
+import styles from "./css/register.module.css"
 
 
 const Register = () => {
@@ -27,7 +29,7 @@ const Register = () => {
         return <ErrorMessage errors={errors} name={inputName}>
             {
                 ({messages}) => messages && Object.entries(messages).map(([type, message]) =>
-                    (<p key={type}>{message}</p>)
+                    (<p className={styles["error-message"]} key={type}>{message}</p>)
                 )
             }
         </ErrorMessage>;
@@ -38,11 +40,13 @@ const Register = () => {
 
         <div>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form className={styles["register-styling"]} onSubmit={handleSubmit(onSubmit)}>
+
+                    <div id={""}>
+                        <label>Username</label>
+                    </div>
 
                 <div>
-                    <label>Username</label>
-
                     <input type="text" placeholder="Enter username"
                            {...register("username", {
                                required: "Username input is required", minLength: {
@@ -57,8 +61,12 @@ const Register = () => {
 
                 {getErrorMessage(errors, "username")}
 
+                    <div>
+                        <label>Password</label>
+                    </div>
+
+
                 <div>
-                    <label>Password</label>
                     <input type="password" placeholder="Enter password"
                            {...register("password", {
                                required: "Password input is required",
@@ -81,6 +89,10 @@ const Register = () => {
 
                 <div>
                     <label>Confirm password</label>
+                </div>
+
+
+                <div>
                     <input type="password" placeholder="Confirm password"
                            {...register("confirmPassword",
                                {validate: value => value === password.current || "The passwords do not match"})}/>
@@ -100,8 +112,11 @@ const Register = () => {
 
                 {getErrorMessage(errors, "emailAddress")}
 
+                    <div>
+                        <label>First name</label>
+                    </div>
+
                 <div>
-                    <label>First name</label>
                     <input type="text" placeholder="Enter first name" {...register("firstName", {
                         required: "Your first name is required"
                     })}/>
@@ -109,8 +124,11 @@ const Register = () => {
 
                 {getErrorMessage(errors, "firstName")}
 
+                    <div>
+                        <label>Last name</label>
+                    </div>
+
                 <div>
-                    <label>Last name</label>
                     <input type="text" placeholder="Enter last name" {...register("lastName", {
                         required: "Your last name is required"
                     })}/>
@@ -124,7 +142,10 @@ const Register = () => {
                 </div>
             </form>
 
-            {serverMessage && <h2>{serverMessage}</h2>}
+
+            {serverMessage && <h2 className={styles["register-error-styling"]}>{serverMessage}</h2>}
+
+
 
         </div>
     )

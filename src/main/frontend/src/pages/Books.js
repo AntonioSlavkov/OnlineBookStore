@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import {Link} from "react-router-dom";
 import Book from "./Book";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styled from "styled-components";
+
 
 
 const Books = ({match}) => {
@@ -29,9 +29,7 @@ const Books = ({match}) => {
             })
     }
 
-    const Container = styled.div`
-        padding: 0px
-    `
+
 
     return (
         books.map((book, index) => {

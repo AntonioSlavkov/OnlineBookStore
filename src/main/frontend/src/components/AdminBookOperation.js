@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import bookApi from "../utils/api/bookApi";
-import {Form, Table} from "react-bootstrap";
+import {Button, Form, Table} from "react-bootstrap";
 import {useFieldArray, useForm} from "react-hook-form";
 import {ErrorMessage} from "@hookform/error-message";
+import styles from "./AdminBookOperation.module.css"
 
 
 
@@ -96,6 +97,9 @@ const AdminBookOperation = () => {
 
     return (
         <div>
+
+            <h1 className={styles["header-two-style"]}>All books</h1>
+
             <div>
                 <Table>
                     <thead>
@@ -119,56 +123,104 @@ const AdminBookOperation = () => {
                 </Table>
             </div>
 
-            <h2>Add book</h2>
+            <h2 className={styles["header-two-style"]}>Add book</h2>
 
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form className={styles["add-book-style"]} onSubmit={handleSubmit(onSubmit)}>
 
-                    <label>Title</label>
-                    <input type="text" placeholder="Title"
-                           {...register("title", {required: "Title field is required", maxLength: 255})} />
-                    {getErrorMessage(errors, "title")}
+                    <div>
+                        <label>Title</label>
+                    </div>
 
-                    <label>Number of pages</label>
-                    <input type="number" placeholder="Pages"
-                           {...register("pages", {required: "Number of pages is required", maxLength: 3000})} />
-                    {getErrorMessage(errors, "pages")}
+                    <div>
+                        <input className={styles["input-style"]} type="text" placeholder="Title"
+                               {...register("title", {required: "Title field is required", maxLength: 255})} />
+                        {getErrorMessage(errors, "title")}
+                    </div>
 
-                    <label>Language</label>
-                    <input type="text" placeholder="Language"
-                           {...register("language", {required: "Language is required"})} />
-                    {getErrorMessage(errors, "language")}
+                    <div>
+                        <label>Number of pages</label>
+                    </div>
 
-                    <label>Price</label>
-                    <input type="number" placeholder="Price"
-                           {...register("price", {required: "Price is required", min: 0})} />
-                    {getErrorMessage(errors, "price")}
+                    <div>
+                        <input className={styles["input-style"]} type="number" placeholder="Pages"
+                               {...register("pages", {required: "Number of pages is required", maxLength: 3000})} />
+                        {getErrorMessage(errors, "pages")}
+                    </div>
 
-                    <label>Main Category</label>
-                    <input type="text" placeholder="Main Category"
-                           {...register("mainCategory", {required: "Main category is required"})} />
-                    {getErrorMessage(errors, "mainCategory")}
 
-                    <label>Author</label>
-                    <input type="text" placeholder="Author"
-                           {...register("author", {required: "Author is required"})}/>
-                    {getErrorMessage(errors, "author")}
 
-                    <label>Description</label>
-                    <textarea {...register("description",
-                        {required: "Book description is required"})} />
-                    {getErrorMessage(errors, "description")}
+                    <div>
+                        <label>Language</label>
+                    </div>
 
+                    <div>
+                        <input className={styles["input-style"]} type="text" placeholder="Language"
+                               {...register("language", {required: "Language is required"})} />
+                        {getErrorMessage(errors, "language")}
+                    </div>
+
+
+
+                    <div>
+                        <label>Price</label>
+                    </div>
+
+                    <div>
+                        <input className={styles["input-style"]} type="number" placeholder="Price"
+                               {...register("price", {required: "Price is required", min: 0})} />
+                        {getErrorMessage(errors, "price")}
+                    </div>
+
+
+
+                    <div>
+                        <label>Main Category</label>
+                    </div>
+
+                    <div>
+                        <input className={styles["input-style"]} type="text" placeholder="Main Category"
+                               {...register("mainCategory", {required: "Main category is required"})} />
+                        {getErrorMessage(errors, "mainCategory")}
+                    </div>
+
+
+
+                    <div>
+                        <label>Author</label>
+                    </div>
+
+                    <div>
+                        <input className={styles["input-style"]} type="text" placeholder="Author"
+                               {...register("author", {required: "Author is required"})}/>
+                        {getErrorMessage(errors, "author")}
+                    </div>
+
+
+
+                    <div>
+                        <label>Description</label>
+                    </div>
+
+                    <div>
+                         <textarea className={styles["input-style"]} {...register("description",
+                             {required: "Book description is required"})} />
+                        {getErrorMessage(errors, "description")}
+                    </div>
+
+                    <div className={styles["picture-array"]}>
+
+                        <label>Picture Urls</label>
                     <ul>
                         {pictureUrlFields.map((item, index) => {
                             return (
                                 <li key={item.id}>
-                                    <input name={`pictureUrls[${index}].imageUrl}`}
+                                    <input className={styles["input-style"]} name={`pictureUrls[${index}].imageUrl}`}
                                            {...register(`pictureUrls.${index}.imageUrl`,
                                                {required: "Picture url is required"})}
                                     />
-                                    <button type="button" onClick={() => pictureUrlRemove(index)}>
+                                    <Button variant={"primary"} type="button" onClick={() => pictureUrlRemove(index)}>
                                         Delete
-                                    </button>
+                                    </Button>
                                 </li>
                             )
                         })}
@@ -179,18 +231,23 @@ const AdminBookOperation = () => {
                         Append link
                     </button>
                     {getErrorMessage(errors, "pictureUrls")}
+                    </div>
+
+                    <div>
+
+                        <label className={styles["sub-category-padding"]}>Sub categories</label>
 
                     <ul>
                         {subCategoryFields.map((secondItem, index) => {
                             return (
                                 <li key={secondItem.id}>
-                                    <input name={`subCategories[${index}].category}`}
+                                    <input className={styles["input-style"]} name={`subCategories[${index}].category}`}
                                            {...register(`subCategories.${index}.category`,
                                                {required: "Sub categories is required"})}
                                     />
-                                    <button type="button" onClick={() => subCategoryRemove(index)}>
+                                    <Button variant={"primary"} type="button" onClick={() => subCategoryRemove(index)}>
                                         Delete
-                                    </button>
+                                    </Button>
                                 </li>
                             )
                         })}
@@ -203,18 +260,20 @@ const AdminBookOperation = () => {
 
                     {getErrorMessage(errors, "subCategories")}
 
+                    </div>
+
                     <input type="submit"/>
                 </form>
 
-            {serverAddBookMessage && <h2>{serverAddBookMessage}</h2>}
+            {serverAddBookMessage && <h2 className={styles["header-two-style"]}>{serverAddBookMessage}</h2>}
 
 
             <div className="col-md-8">
                 <div>
-                    <h3>{"Delete book by id"}</h3>
+                    <h3 className={styles["header-two-style"]}>{"Delete book by id"}</h3>
                 </div>
                 <div className="input-group mb-3">
-                    <form>
+                    <form className={styles["delete-book-form"]}>
                         <input
                             type="text"
                             className="form-control"
@@ -224,20 +283,20 @@ const AdminBookOperation = () => {
                         />
 
                         <div className="input-group-append">
-                            <button
-                                className="btn btn-outline-secondary"
+                            <Button
+                                variant={"primary"}
                                 type="button"
                                 onClick={deleteBookById}
                             >
                                 Delete book
-                            </button>
+                            </Button>
                         </div>
                     </form>
 
                 </div>
             </div>
 
-            {serverDeleteBookMessage && <h2>{serverDeleteBookMessage}</h2>}
+            {serverDeleteBookMessage && <h2 className={styles["header-two-style"]}>{serverDeleteBookMessage}</h2>}
 
 
 

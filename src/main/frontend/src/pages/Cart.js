@@ -60,6 +60,11 @@ const Cart = () => {
         padding-bottom: 20px;
     `
 
+    const HeaderOneForCart = styled.h1`
+        padding-left: 600px
+    `
+
+
     return (
         <MainDiv>
             <HeaderTwo>Cart</HeaderTwo>
@@ -97,7 +102,7 @@ const Cart = () => {
                 </>
 
 
-            ) : (<><h1>Cart is empty</h1> </>) }
+            ) : (<><HeaderOneForCart>Your cart is empty</HeaderOneForCart> </>) }
 
 
 

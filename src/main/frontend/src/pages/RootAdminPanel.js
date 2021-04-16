@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import RoleApi from "../utils/api/RoleApi";
-import SearchUserRoles from "../components/SearchUserRoles";
+import styles from "./css/rootAdmin.module.css"
+import {Button} from "react-bootstrap";
 
 
 const RootAdminPanel = () => {
@@ -70,11 +71,31 @@ const RootAdminPanel = () => {
     }
 
     return (
-        <div className="list row">
-            <SearchUserRoles
-                value={searchUser} onChange={updateUserSearch} onClick={getRoles} placeholder={"Enter user"}
-                title={"Show user roles"}
-            />
+        <div className={styles["mainDiv-style"]}>
+            <div className="col-md-4">
+                <div>
+                    <h3>{"Show user roles"}</h3>
+                </div>
+                <span>Enter username to see his roles.</span>
+                <div className="input-group mb-3">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder={"Enter user"}
+                        value={searchUser}
+                        onChange={updateUserSearch}
+                    />
+                    <div className="input-group-append">
+                        <Button
+                            variant={"primary"}
+                            type="button"
+                            onClick={getRoles}
+                        >
+                            Search
+                        </Button>
+                    </div>
+                </div>
+            </div>
             <div>
                 <ul>
                     {userRoles.map((role, index) => {
@@ -110,13 +131,13 @@ const RootAdminPanel = () => {
                         </label>
 
                         <div className="input-group-append">
-                            <button
-                                className="btn btn-outline-secondary"
+                            <Button
+                                variant={"primary"}
                                 type="button"
                                 onClick={addRole}
                             >
                                 Add role
-                            </button>
+                            </Button>
                         </div>
                     </form>
 
@@ -148,13 +169,13 @@ const RootAdminPanel = () => {
                         </label>
 
                         <div className="input-group-append">
-                            <button
-                                className="btn btn-outline-secondary"
+                            <Button
+                                variant={"primary"}
                                 type="button"
                                 onClick={deleteRole}
                             >
                                 Delete role
-                            </button>
+                            </Button>
                         </div>
                     </form>
 

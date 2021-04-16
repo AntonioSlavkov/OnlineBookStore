@@ -1,10 +1,10 @@
 import './App.css';
-import Header from "./components/Header";
 import React, {useState, useEffect, useContext} from "react";
 import UserApi from "./utils/api/UserApi";
 import {Link} from "react-router-dom";
 import {Container, DropdownButton, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import DropdownItem from "react-bootstrap/DropdownItem";
+import styled from "styled-components";
+
 
 function App() {
     const [currentUser, setCurrentUser] = useState(undefined)
@@ -33,76 +33,80 @@ function App() {
         UserApi.logout()
     }
 
+    const Container = styled.div`
+
+    padding: 40px;
+`
+
     return (
         <div className="App">
             <Container>
-                <Navbar className="navbar navbar-expand navbar-dark bg-dark">
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="mr-auto">
+                    <Navbar bg="dark" variant="dark" fixed="top">
+                        {/*<Navbar.Toggle aria-controls="responsive-navbar-nav" />*/}
+                        {/*<Navbar.Collapse id="responsive-navbar-nav">*/}
+                            <Nav className="mr-auto">
 
-                        <Nav.Link href="/">Index</Nav.Link>
-                        <Nav.Link href="/books">Books</Nav.Link>
+                                <Nav.Link href="/">Home</Nav.Link>
+                                <Nav.Link href="/books">Books</Nav.Link>
 
-                        {showCart && (
-                            <Nav.Link href="/cart">Cart</Nav.Link>
-                        )}
+                                {showCart && (
+                                    <Nav.Link href="/cart">Cart</Nav.Link>
+                                )}
 
-                        {showProfile && (
-                            <Nav.Link href="/profile">Profile</Nav.Link>
-                        )}
+                                {showProfile && (
+                                    <Nav.Link href="/profile">Profile</Nav.Link>
+                                )}
 
 
-                        {showAdminPanel && (
-                            <NavDropdown title="Admin" id="collapsible-nav-dropdown">
-                                <NavDropdown.Item href="/adminPanel/Books">Books</NavDropdown.Item>
-                                <NavDropdown.Item href="/adminPanel/Orders">Orders</NavDropdown.Item>
-                            </NavDropdown>
-                        )}
+                                {showAdminPanel && (
+                                    <NavDropdown title="Admin" id="collapsible-nav-dropdown">
+                                        <NavDropdown.Item href="/adminPanel/Books">Books</NavDropdown.Item>
+                                        <NavDropdown.Item href="/adminPanel/Orders">Orders</NavDropdown.Item>
+                                    </NavDropdown>
+                                )}
 
-                        {showRootAdminPanel && (
-                            <Nav.Link href="/rootAdminPanel">Root Admin</Nav.Link>
-                        )}
-                    </Nav>
-                    <Navbar >
-                        <Nav>
-                            {currentUser ? (
-                                <div className="navbar-nav ml-auto">
+                                {showRootAdminPanel && (
+                                    <Nav.Link href="/rootAdminPanel">Root Admin</Nav.Link>
+                                )}
+                            </Nav>
+                            <Navbar >
+                                <Nav>
+                                    {currentUser ? (
+                                        <div className="navbar-nav ml-auto">
 
-                                    <li className="nav-item">
-                                        <Nav.Link href="/profile">{currentUser.username}</Nav.Link>
-                                    </li>
-                                    <li className="nav-item">
+                                            <li className="nav-item">
+                                                <Nav.Link href="/profile">{currentUser.username}</Nav.Link>
+                                            </li>
+                                            <li className="nav-item">
 
-                                        <a href="/login" className="nav-link" onClick={logOut}>
-                                            LogOut
-                                        </a>
-                                    </li>
-                                </div>
-                            ) : (
-                                <div className="navbar-nav ml-auto">
-                                    <li className="nav-item">
+                                                <a href="/login" className="nav-link" onClick={logOut}>
+                                                    LogOut
+                                                </a>
+                                            </li>
+                                        </div>
+                                    ) : (
+                                        <div className="navbar-nav ml-auto">
+                                            <li className="nav-item">
 
-                                        <Link to={"/login"} className="nav-link">
-                                            Login
-                                        </Link>
-                                    </li>
+                                                <Link to={"/login"} className="nav-link">
+                                                    Login
+                                                </Link>
+                                            </li>
 
-                                    <li className="navbar-nav ml-auto">
-                                        <Link to={"/register"} className="nav-link">
-                                            Register
-                                        </Link>
-                                    </li>
-                                </div>
-                            )}
-                        </Nav>
-
+                                            <li className="navbar-nav ml-auto">
+                                                <Link to={"/register"} className="nav-link">
+                                                    Register
+                                                </Link>
+                                            </li>
+                                        </div>
+                                    )}
+                                </Nav>
+                            </Navbar>
+                        {/*</Navbar.Collapse>*/}
                     </Navbar>
-                    </Navbar.Collapse>
-                </Navbar>
             </Container>
-
         </div>
+
     );
 }
 

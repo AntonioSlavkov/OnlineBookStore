@@ -6,11 +6,13 @@ import {BrowserRouter} from "react-router-dom";
 import Navigation from "./components/Navigation";
 import AdminNavigation from "./components/AdminNavigation";
 import App from "./App";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
           <BrowserRouter>
-              <Navigation/>
+              <App/>
+             <Navigation/>
           </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react"
 import CartApi from "../utils/api/CartApi";
 import UserApi from "../utils/api/UserApi";
 import bookApi from "../utils/api/bookApi";
-import {Container, Table} from "react-bootstrap";
+import {Button, Container, Table} from "react-bootstrap";
 import OrdersApi from "../utils/api/OrdersApi";
+import styled from "styled-components";
 
 const Cart = () => {
 
@@ -50,37 +51,57 @@ const Cart = () => {
         })
     }
 
+    const MainDiv = styled.div`
+        padding-top: 40px;
+    `
+
+    const HeaderTwo = styled.h2`
+        text-align: center;
+        padding-bottom: 20px;
+    `
 
     return (
-        <div>
+        <MainDiv>
+            <HeaderTwo>Cart</HeaderTwo>
+            {book.length ? (
+                <>
+                    <Table responsive={true} striped={false} size="lg" bordered={true}>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            book.map((theBook, index) => {
 
-            <Table responsive={true} striped={false} size="sm">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Price</th>
-                </tr>
-                </thead>
-                <tbody>
-                {
-                    book.map((theBook, index) => {
-
-                        return (
-                            <tr>
-                                <td>{index}</td>
-                                <td>{theBook.title}</td>
-                                <td>{theBook.price}</td>
-                            </tr>
-                        )
-                    })
-                }
-                </tbody>
-            </Table>
-            <button onClick={addOrder}>Place order</button>
+                                return (
+                                    <tr>
+                                        <td>{index}</td>
+                                        <td>{theBook.title}</td>
+                                        <td>{theBook.price}</td>
+                                    </tr>
+                                )
+                            })
+                        }
+                        </tbody>
+                    </Table>
+                    <div>
+                        <Button variant={"primary"} size={"lg"} onClick={addOrder}>Place order</Button>
+                    </div>
 
 
-        </div>
+
+                </>
+
+
+            ) : (<><h1>Cart is empty</h1> </>) }
+
+
+
+        </MainDiv>
 
     )
 }

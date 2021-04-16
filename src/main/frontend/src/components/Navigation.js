@@ -10,13 +10,14 @@ import AdminPanel from "../pages/AdminPanel";
 import Cart from "../pages/Cart";
 import Book from "../pages/Book";
 import AdminBookOperation from "./AdminBookOperation";
+import Home from "../pages/Home";
 
 const Navigation = () => {
 
 
     return (
         <Switch>
-            <Route path="/" exact component={App}/>
+            <Route path="/" exact component={Home}/>
             <Route path="/login" component={Login}/>
             <Route path="/register" component={Register}/>
             <Route path="/books" component={Books}/>

@@ -5,6 +5,7 @@ import BookAddToCartContext from "../components/BookAddToCartContext";
 import {useParams} from "react-router";
 import CartApi from "../utils/api/CartApi";
 import UserApi from "../utils/api/UserApi";
+import styled from "styled-components";
 
 
 const Book = () => {
@@ -38,12 +39,39 @@ const Book = () => {
         })
     }
 
+    const PaddingDiv = styled.div`
+        padding-top: 40px;
+        
+    `
+    const DescriptionDiv = styled.div`
+        
+        border: 3px solid black;
+        border-radius: 10px;
+    `
+    const HeaderFourPadding = styled.h4`
+        padding-left: 5px;
+    `
+
+    const ParagraphDescription = styled.p`
+        padding-left: 5px;
+    `
+
+    const AddToCardDiv = styled.div`
+        padding-top: 10px;
+    `
+
+    const BookServerMessageHeaderTwo = styled.h2`
+        padding-top: 10px;
+        text-align: center;
+        color: green;
+    `
+
 //TODO render the other properties of the book
     return (
 
         <div className="container">
             <div className="row">
-                <div className="col-md8">
+                <div className="col-md">
                     <div className="row">
                         <div className="col-md-4">
                             <img className="img-fluid" src={book.pictureUrls && book.pictureUrls.map( url =>{
@@ -71,7 +99,7 @@ const Book = () => {
                                     <td>{book.subCategories && book.subCategories.map( subCat => {
                                         return <li>{subCat.category}</li>
                                     })}</td>
-                                    <td>{book.price}</td>
+                                    <td>{book.price}$</td>
                                     <td>{book.author && book.author.author}</td>
                                 </tr>
                                 </tbody>
@@ -82,12 +110,19 @@ const Book = () => {
                 </div>
             </div>
 
-            <div>
-                <p>{book.description && book.description}</p>
-            </div>
+            <PaddingDiv>
+                <DescriptionDiv>
+                    <HeaderFourPadding>Description</HeaderFourPadding>
+                    <ParagraphDescription>{book.description && book.description}</ParagraphDescription>
+                </DescriptionDiv>
 
-            <Button onClick={addBookToUserCart}>Add to Cart</Button>
-            {addBookToCartServerMessage && <h2>{addBookToCartServerMessage}</h2>}
+            </PaddingDiv>
+
+            <AddToCardDiv>
+                <Button variant={"primary"} onClick={addBookToUserCart}>Add to Cart</Button>
+            </AddToCardDiv>
+
+            {addBookToCartServerMessage && <BookServerMessageHeaderTwo>{addBookToCartServerMessage}</BookServerMessageHeaderTwo>}
 
         </div>
     )

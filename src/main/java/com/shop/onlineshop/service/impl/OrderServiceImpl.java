@@ -77,4 +77,14 @@ public class OrderServiceImpl implements OrderService {
 
         return orderViewMapper.orderEntityToOrderViewModel(userOrder);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        orderRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existById(Long id) {
+        return orderRepository.existsById(id);
+    }
 }

@@ -15,7 +15,13 @@ const AdminOrderOperation = () => {
     const [orderId, setOrderId] = useState()
     const [getUserOrderServerMessage, setGetUserOrderServerMessage] = useState('')
     const [getOrderIdServerMessage, setGetOrderIdServerMessage] = useState('')
+    const [orderIdToDelete, setOrderIdToDelete] = useState('')
+    const [orderDeleteServerMessage, setOrderDeleteServerMessage] = useState('')
     console.log(getOrderIdServerMessage)
+
+    const updateOrderIdToDelete = e => {
+        setOrderIdToDelete(e.target.value)
+    }
 
     const updateStatusName = e => {
         setStatusName(e.target.value)
@@ -31,6 +37,17 @@ const AdminOrderOperation = () => {
 
     const updateSearchUserForOrder = e => {
         setSearchUserForOrder(e.target.value)
+    }
+
+    const deleteOrderById = () => {
+            OrdersApi.deleteOrder(orderIdToDelete).then(response => {
+                setOrderDeleteServerMessage(response.data.message)
+            }).catch(error => {
+                setOrderDeleteServerMessage(error.response.data.message)
+            })
+
+
+
     }
 
     const getAllOrders = () => {
@@ -54,9 +71,10 @@ const AdminOrderOperation = () => {
 
     const updateOrder = () => {
         OrdersApi.updateOrder(orderId, statusName).then(response => {
-            console.log(response)
+
+            setGetOrderIdServerMessage(response.data.message)
         }).catch(error => {
-            console.log(error.response)
+
             setGetOrderIdServerMessage(error.response.data.message)
         })
     }
@@ -130,24 +148,38 @@ const AdminOrderOperation = () => {
                     </thead>
                     <tbody>
                     <tr>
-                        <td>{searchedUserOrder && searchedUserOrder.map(theOrder => theOrder.user.email)}</td>
-                        <td>{searchedUserOrder && searchedUserOrder.map(theOrder => theOrder.user.firstName)}</td>
-                        <td>{searchedUserOrder && searchedUserOrder.map(theOrder => theOrder.user.lastName)}</td>
-                        <td>{searchedUserOrder && searchedUserOrder.map(theOrder => {
-                            return (
-                                <div>{theOrder.user.userContactEntity.city}</div>
-                            )
-                        })}</td>
-                        <td>{searchedUserOrder && searchedUserOrder.map(theOrder => {
-                            return (
-                                <div>{theOrder.user.userContactEntity.address}</div>
-                            )
-                        })}</td>
-                        <td>{searchedUserOrder && searchedUserOrder.map(theOrder => {
-                            return (
-                                <div>{theOrder.user.userContactEntity.phoneNumber}</div>
-                            )
-                        })}</td>
+                        <td>{searchedUserOrder.user && searchedUserOrder.user.email}</td>
+
+                        <td>{searchedUserOrder.user && searchedUserOrder.user.firstName}</td>
+
+                        <td>{searchedUserOrder.user && searchedUserOrder.user.lastName}</td>
+
+                        <td>{searchedUserOrder.user.userContactEntity &&
+                        searchedUserOrder.user.userContactEntity.city}</td>
+
+                        <td>{searchedUserOrder.user.userContactEntity &&
+                        searchedUserOrder.user.userContactEntity.address}</td>
+
+                        <td>{searchedUserOrder.user.userContactEntity &&
+                        searchedUserOrder.user.userContactEntity.phoneNumber}</td>
+                        {/*<td>{searchedUserOrder && searchedUserOrder.map(theOrder => theOrder.user.email)}</td>*/}
+                        {/*<td>{searchedUserOrder && searchedUserOrder.map(theOrder => theOrder.user.firstName)}</td>*/}
+                        {/*<td>{searchedUserOrder && searchedUserOrder.map(theOrder => theOrder.user.lastName)}</td>*/}
+                        {/*<td>{searchedUserOrder && searchedUserOrder.map(theOrder => {*/}
+                        {/*    return (*/}
+                        {/*        <div>{theOrder.user.userContactEntity.city}</div>*/}
+                        {/*    )*/}
+                        {/*})}</td>*/}
+                        {/*<td>{searchedUserOrder && searchedUserOrder.map(theOrder => {*/}
+                        {/*    return (*/}
+                        {/*        <div>{theOrder.user.userContactEntity.address}</div>*/}
+                        {/*    )*/}
+                        {/*})}</td>*/}
+                        {/*<td>{searchedUserOrder && searchedUserOrder.map(theOrder => {*/}
+                        {/*    return (*/}
+                        {/*        <div>{theOrder.user.userContactEntity.phoneNumber}</div>*/}
+                        {/*    )*/}
+                        {/*})}</td>*/}
 
 
                     </tr>
@@ -156,7 +188,7 @@ const AdminOrderOperation = () => {
                 </Table>
             </Container>
 
-            {getUserOrderServerMessage && <h2>{getUserOrderServerMessage}</h2>}
+            {getUserOrderServerMessage && <h2 className={styles["serverMessage-style"]}>{getUserOrderServerMessage}</h2>}
 
 
             <Container>
@@ -182,7 +214,37 @@ const AdminOrderOperation = () => {
 
             </Container>
 
-            {getOrderIdServerMessage && <h2>{getOrderIdServerMessage}</h2>}
+            {getOrderIdServerMessage && <h2 className={styles["serverMessage-style"]}>{getOrderIdServerMessage}</h2>}
+
+            <Container>
+                <div>
+                    <h3 className={styles["header-three-style"]}>{"Delete order by id"}</h3>
+                </div>
+                <div className="input-group mb-3">
+                    <form className={styles["delete-book-form"]}>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder={"Enter order id"}
+                            value={orderIdToDelete}
+                            onChange={updateOrderIdToDelete}
+                        />
+
+                        <div className="input-group-append">
+                            <Button
+                                variant={"primary"}
+                                type="button"
+                                onClick={deleteOrderById}
+                            >
+                                Delete order
+                            </Button>
+                        </div>
+                    </form>
+
+                </div>
+            </Container>
+
+            {orderDeleteServerMessage && <h2 className={styles["serverMessage-style"]}>{orderDeleteServerMessage}</h2>}
 
         </div>
     )

@@ -7,7 +7,7 @@ const getOrders = async () => {
 }
 
 const getOrdersByUser = async (username) => {
-    return await axios.get(API_URL + "all", {
+    return await axios.get(API_URL + "user", {
 
         params: {
             username: username
@@ -28,9 +28,14 @@ const updateOrder = async (id, statusName) => {
     })
 }
 
+const deleteOrder = async (id) => {
+    return await axios.delete(API_URL + "delete/" + id)
+}
+
 export default {
     getOrders,
     getOrdersByUser,
     addOrder,
-    updateOrder
+    updateOrder,
+    deleteOrder
 }

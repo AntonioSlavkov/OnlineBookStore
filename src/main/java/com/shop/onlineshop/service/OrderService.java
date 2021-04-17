@@ -14,4 +14,8 @@ public interface OrderService {
     List<OrdersViewModel> getAllOrders();
 
     OrdersViewModel getUserOrders(String username);
+
+    void deleteById(Long id);
+
+    boolean existById (Long id);
 }

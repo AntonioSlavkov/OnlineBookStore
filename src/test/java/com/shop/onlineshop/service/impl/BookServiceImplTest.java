@@ -139,121 +139,121 @@ public class BookServiceImplTest {
         verify(bookAddMapper).BookAddBindingToBookEntity((BookAddBindingModel) any());
     }
 
-    @Test
-    public void testAddBook2() {
-        AuthorRepository authorRepository = mock(AuthorRepository.class);
-        when(authorRepository.findByAuthor(anyString()))
-                .thenThrow(new BookNotFoundException("An error occurred", HttpStatus.CONTINUE));
-        when(authorRepository.existsAuthorEntityByAuthor(anyString())).thenReturn(true);
-        AuthorViewMapperImpl authorViewMapper = new AuthorViewMapperImpl();
-        AuthorServiceImpl authorService = new AuthorServiceImpl(authorRepository, authorViewMapper,
-                new AuthorAddMapperImpl());
-
-        CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setId(123L);
-        categoryEntity.setCategory("Category");
-
-        AuthorEntity authorEntity = new AuthorEntity();
-        authorEntity.setId(123L);
-        authorEntity.setAuthor("JaneDoe");
-
-        BookEntity bookEntity = new BookEntity();
-        bookEntity.setLanguage("Language");
-        bookEntity.setPictureUrls(new ArrayList<PictureEntity>());
-        bookEntity.setMainCategory(categoryEntity);
-        bookEntity.setSubCategories(new HashSet<CategoryEntity>());
-        bookEntity.setId(123L);
-        bookEntity.setPages(1);
-        bookEntity.setPrice(BigDecimal.valueOf(42L));
-        bookEntity.setTitle("Dr");
-        bookEntity.setDescription("The characteristics of someone or something");
-        bookEntity.setAuthor(authorEntity);
-        BookAddMapper bookAddMapper = mock(BookAddMapper.class);
-        when(bookAddMapper.BookAddBindingToBookEntity((BookAddBindingModel) any())).thenReturn(bookEntity);
-        CategoryRepository categoryRepository = mock(CategoryRepository.class);
-        CategoryViewMapperImpl categoryViewMapper = new CategoryViewMapperImpl();
-        CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepository, categoryViewMapper,
-                new CategoryAddMapperImpl());
-        BookRepository bookRepository = mock(BookRepository.class);
-        BookViewMapperImpl bookViewMapper = new BookViewMapperImpl();
-        BookServiceImpl bookServiceImpl = new BookServiceImpl(authorService, categoryService, bookRepository,
-                bookViewMapper, bookAddMapper);
-
-        AuthorEntity authorEntity1 = new AuthorEntity();
-        authorEntity1.setId(123L);
-        authorEntity1.setAuthor("JaneDoe");
-
-        BookAddBindingModel bookAddBindingModel = new BookAddBindingModel();
-        bookAddBindingModel.setAuthor(authorEntity1);
-        bookServiceImpl.addBook(bookAddBindingModel);
-        verify(authorRepository).findByAuthor(anyString());
-        verify(authorRepository).existsAuthorEntityByAuthor(anyString());
-        verify(bookAddMapper).BookAddBindingToBookEntity((BookAddBindingModel) any());
-    }
-
-    @Test
-    public void testAddBook3() {
-        AuthorEntity authorEntity = new AuthorEntity();
-        authorEntity.setId(123L);
-        authorEntity.setAuthor("JaneDoe");
-        AuthorRepository authorRepository = mock(AuthorRepository.class);
-        when(authorRepository.findByAuthor(anyString())).thenReturn(Optional.<AuthorEntity>of(authorEntity));
-        when(authorRepository.existsAuthorEntityByAuthor(anyString())).thenReturn(true);
-        AuthorViewMapperImpl authorViewMapper = new AuthorViewMapperImpl();
-        AuthorServiceImpl authorService = new AuthorServiceImpl(authorRepository, authorViewMapper,
-                new AuthorAddMapperImpl());
-        CategoryRepository categoryRepository = mock(CategoryRepository.class);
-        when(categoryRepository.findByCategory(anyString()))
-                .thenThrow(new BookNotFoundException("An error occurred", HttpStatus.CONTINUE));
-        when(categoryRepository.existsCategoryEntityByCategory(anyString())).thenReturn(true);
-        CategoryViewMapperImpl categoryViewMapper = new CategoryViewMapperImpl();
-        CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepository, categoryViewMapper,
-                new CategoryAddMapperImpl());
-
-        CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setId(123L);
-        categoryEntity.setCategory("Category");
-
-        AuthorEntity authorEntity1 = new AuthorEntity();
-        authorEntity1.setId(123L);
-        authorEntity1.setAuthor("JaneDoe");
-
-        BookEntity bookEntity = new BookEntity();
-        bookEntity.setLanguage("Language");
-        bookEntity.setPictureUrls(new ArrayList<PictureEntity>());
-        bookEntity.setMainCategory(categoryEntity);
-        bookEntity.setSubCategories(new HashSet<CategoryEntity>());
-        bookEntity.setId(123L);
-        bookEntity.setPages(1);
-        bookEntity.setPrice(BigDecimal.valueOf(42L));
-        bookEntity.setTitle("Dr");
-        bookEntity.setDescription("The characteristics of someone or something");
-        bookEntity.setAuthor(authorEntity1);
-        BookAddMapper bookAddMapper = mock(BookAddMapper.class);
-        when(bookAddMapper.BookAddBindingToBookEntity((BookAddBindingModel) any())).thenReturn(bookEntity);
-        BookRepository bookRepository = mock(BookRepository.class);
-        BookViewMapperImpl bookViewMapper = new BookViewMapperImpl();
-        BookServiceImpl bookServiceImpl = new BookServiceImpl(authorService, categoryService, bookRepository,
-                bookViewMapper, bookAddMapper);
-
-        AuthorEntity authorEntity2 = new AuthorEntity();
-        authorEntity2.setId(123L);
-        authorEntity2.setAuthor("JaneDoe");
-
-        CategoryEntity categoryEntity1 = new CategoryEntity();
-        categoryEntity1.setId(123L);
-        categoryEntity1.setCategory("Category");
-
-        BookAddBindingModel bookAddBindingModel = new BookAddBindingModel();
-        bookAddBindingModel.setMainCategory(categoryEntity1);
-        bookAddBindingModel.setAuthor(authorEntity2);
-        bookServiceImpl.addBook(bookAddBindingModel);
-        verify(authorRepository).findByAuthor(anyString());
-        verify(authorRepository).existsAuthorEntityByAuthor(anyString());
-        verify(bookAddMapper).BookAddBindingToBookEntity((BookAddBindingModel) any());
-        verify(categoryRepository).findByCategory(anyString());
-        verify(categoryRepository).existsCategoryEntityByCategory(anyString());
-    }
+//    @Test
+//    public void testAddBook2() {
+//        AuthorRepository authorRepository = mock(AuthorRepository.class);
+//        when(authorRepository.findByAuthor(anyString()))
+//                .thenThrow(new BookNotFoundException("An error occurred", HttpStatus.CONTINUE));
+//        when(authorRepository.existsAuthorEntityByAuthor(anyString())).thenReturn(true);
+//        AuthorViewMapperImpl authorViewMapper = new AuthorViewMapperImpl();
+//        AuthorServiceImpl authorService = new AuthorServiceImpl(authorRepository, authorViewMapper,
+//                new AuthorAddMapperImpl());
+//
+//        CategoryEntity categoryEntity = new CategoryEntity();
+//        categoryEntity.setId(123L);
+//        categoryEntity.setCategory("Category");
+//
+//        AuthorEntity authorEntity = new AuthorEntity();
+//        authorEntity.setId(123L);
+//        authorEntity.setAuthor("JaneDoe");
+//
+//        BookEntity bookEntity = new BookEntity();
+//        bookEntity.setLanguage("Language");
+//        bookEntity.setPictureUrls(new ArrayList<PictureEntity>());
+//        bookEntity.setMainCategory(categoryEntity);
+//        bookEntity.setSubCategories(new HashSet<CategoryEntity>());
+//        bookEntity.setId(123L);
+//        bookEntity.setPages(1);
+//        bookEntity.setPrice(BigDecimal.valueOf(42L));
+//        bookEntity.setTitle("Dr");
+//        bookEntity.setDescription("The characteristics of someone or something");
+//        bookEntity.setAuthor(authorEntity);
+//        BookAddMapper bookAddMapper = mock(BookAddMapper.class);
+//        when(bookAddMapper.BookAddBindingToBookEntity((BookAddBindingModel) any())).thenReturn(bookEntity);
+//        CategoryRepository categoryRepository = mock(CategoryRepository.class);
+//        CategoryViewMapperImpl categoryViewMapper = new CategoryViewMapperImpl();
+//        CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepository, categoryViewMapper,
+//                new CategoryAddMapperImpl());
+//        BookRepository bookRepository = mock(BookRepository.class);
+//        BookViewMapperImpl bookViewMapper = new BookViewMapperImpl();
+//        BookServiceImpl bookServiceImpl = new BookServiceImpl(authorService, categoryService, bookRepository,
+//                bookViewMapper, bookAddMapper);
+//
+//        AuthorEntity authorEntity1 = new AuthorEntity();
+//        authorEntity1.setId(123L);
+//        authorEntity1.setAuthor("JaneDoe");
+//
+//        BookAddBindingModel bookAddBindingModel = new BookAddBindingModel();
+//        bookAddBindingModel.setAuthor(authorEntity1);
+//        bookServiceImpl.addBook(bookAddBindingModel);
+//        verify(authorRepository).findByAuthor(anyString());
+//        verify(authorRepository).existsAuthorEntityByAuthor(anyString());
+//        verify(bookAddMapper).BookAddBindingToBookEntity((BookAddBindingModel) any());
+//    }
+//
+//    @Test
+//    public void testAddBook3() {
+//        AuthorEntity authorEntity = new AuthorEntity();
+//        authorEntity.setId(123L);
+//        authorEntity.setAuthor("JaneDoe");
+//        AuthorRepository authorRepository = mock(AuthorRepository.class);
+//        when(authorRepository.findByAuthor(anyString())).thenReturn(Optional.<AuthorEntity>of(authorEntity));
+//        when(authorRepository.existsAuthorEntityByAuthor(anyString())).thenReturn(true);
+//        AuthorViewMapperImpl authorViewMapper = new AuthorViewMapperImpl();
+//        AuthorServiceImpl authorService = new AuthorServiceImpl(authorRepository, authorViewMapper,
+//                new AuthorAddMapperImpl());
+//        CategoryRepository categoryRepository = mock(CategoryRepository.class);
+//        when(categoryRepository.findByCategory(anyString()))
+//                .thenThrow(new BookNotFoundException("An error occurred", HttpStatus.CONTINUE));
+//        when(categoryRepository.existsCategoryEntityByCategory(anyString())).thenReturn(true);
+//        CategoryViewMapperImpl categoryViewMapper = new CategoryViewMapperImpl();
+//        CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepository, categoryViewMapper,
+//                new CategoryAddMapperImpl());
+//
+//        CategoryEntity categoryEntity = new CategoryEntity();
+//        categoryEntity.setId(123L);
+//        categoryEntity.setCategory("Category");
+//
+//        AuthorEntity authorEntity1 = new AuthorEntity();
+//        authorEntity1.setId(123L);
+//        authorEntity1.setAuthor("JaneDoe");
+//
+//        BookEntity bookEntity = new BookEntity();
+//        bookEntity.setLanguage("Language");
+//        bookEntity.setPictureUrls(new ArrayList<PictureEntity>());
+//        bookEntity.setMainCategory(categoryEntity);
+//        bookEntity.setSubCategories(new HashSet<CategoryEntity>());
+//        bookEntity.setId(123L);
+//        bookEntity.setPages(1);
+//        bookEntity.setPrice(BigDecimal.valueOf(42L));
+//        bookEntity.setTitle("Dr");
+//        bookEntity.setDescription("The characteristics of someone or something");
+//        bookEntity.setAuthor(authorEntity1);
+//        BookAddMapper bookAddMapper = mock(BookAddMapper.class);
+//        when(bookAddMapper.BookAddBindingToBookEntity((BookAddBindingModel) any())).thenReturn(bookEntity);
+//        BookRepository bookRepository = mock(BookRepository.class);
+//        BookViewMapperImpl bookViewMapper = new BookViewMapperImpl();
+//        BookServiceImpl bookServiceImpl = new BookServiceImpl(authorService, categoryService, bookRepository,
+//                bookViewMapper, bookAddMapper);
+//
+//        AuthorEntity authorEntity2 = new AuthorEntity();
+//        authorEntity2.setId(123L);
+//        authorEntity2.setAuthor("JaneDoe");
+//
+//        CategoryEntity categoryEntity1 = new CategoryEntity();
+//        categoryEntity1.setId(123L);
+//        categoryEntity1.setCategory("Category");
+//
+//        BookAddBindingModel bookAddBindingModel = new BookAddBindingModel();
+//        bookAddBindingModel.setMainCategory(categoryEntity1);
+//        bookAddBindingModel.setAuthor(authorEntity2);
+//        bookServiceImpl.addBook(bookAddBindingModel);
+//        verify(authorRepository).findByAuthor(anyString());
+//        verify(authorRepository).existsAuthorEntityByAuthor(anyString());
+//        verify(bookAddMapper).BookAddBindingToBookEntity((BookAddBindingModel) any());
+//        verify(categoryRepository).findByCategory(anyString());
+//        verify(categoryRepository).existsCategoryEntityByCategory(anyString());
+//    }
 
     @Test
     public void testAddBook4() {

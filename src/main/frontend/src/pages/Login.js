@@ -41,6 +41,7 @@ const Login = (props) => {
         setLoading(true)
 
         form.current.validateAll()
+        // form.validateAll()
 
         if (checkBtn.current.context._errors.length === 0) {
             UserApi.login(username, password)

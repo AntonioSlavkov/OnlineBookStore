@@ -30,6 +30,10 @@ public class RoleController {
     @PostMapping("/add")
     public ResponseEntity<?> addRoleToUser(@RequestBody UserAddRoleBindingModel userAddRoleBindingModel) {
 
+        if (userAddRoleBindingModel.getUsername().isEmpty()) {
+            return ResponseEntity.status(404).body(new MessageDto("Please provide a username"));
+        }
+
         if (!userService.existsByUsername(userAddRoleBindingModel.getUsername())) {
             return ResponseEntity.status(404).body(
                     new MessageDto("User with " + userAddRoleBindingModel.getUsername() + " does not exist"));
@@ -42,6 +46,10 @@ public class RoleController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<?> removeRoleToUser(@RequestParam String username, @RequestParam RoleName roleName) {
+
+        if (username.isBlank()) {
+            return ResponseEntity.status(400).body(new MessageDto("Please provide a username"));
+        }
 
         if (!userService.existsByUsername(username)) {
             return ResponseEntity.status(404).body(new MessageDto("User with " + username + " does not exist"));

@@ -110,31 +110,31 @@ public class CategoryServiceImplTest {
         verify(this.categoryRepository).findById((Long) any());
     }
 
-    @Test
-    public void testAddCategory() {
-        when(this.categoryRepository.existsCategoryEntityByCategory(anyString())).thenReturn(true);
-        assertThrows(CategoryAlreadyExistException.class,
-                () -> this.categoryServiceImpl.addCategory(new CategoryAddBindingModel()));
-        verify(this.categoryRepository).existsCategoryEntityByCategory(anyString());
-    }
+//    @Test
+//    public void testAddCategory() {
+//        when(this.categoryRepository.existsCategoryEntityByCategory(anyString())).thenReturn(true);
+//        assertThrows(CategoryAlreadyExistException.class,
+//                () -> this.categoryServiceImpl.addCategory(new CategoryAddBindingModel()));
+//        verify(this.categoryRepository).existsCategoryEntityByCategory(anyString());
+//    }
 
-    @Test
-    public void testAddCategory2() {
-        CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setId(123L);
-        categoryEntity.setCategory("Category");
-        when(this.categoryRepository.save((CategoryEntity) any())).thenReturn(categoryEntity);
-        when(this.categoryRepository.existsCategoryEntityByCategory(anyString())).thenReturn(false);
-
-        CategoryEntity categoryEntity1 = new CategoryEntity();
-        categoryEntity1.setId(123L);
-        categoryEntity1.setCategory("Category");
-        when(this.categoryAddMapper.categoryAddBindingToCategoryEntity(anyString())).thenReturn(categoryEntity1);
-        this.categoryServiceImpl.addCategory(new CategoryAddBindingModel());
-        verify(this.categoryAddMapper).categoryAddBindingToCategoryEntity(anyString());
-        verify(this.categoryRepository).save((CategoryEntity) any());
-        verify(this.categoryRepository).existsCategoryEntityByCategory(anyString());
-    }
+//    @Test
+//    public void testAddCategory2() {
+//        CategoryEntity categoryEntity = new CategoryEntity();
+//        categoryEntity.setId(123L);
+//        categoryEntity.setCategory("Category");
+//        when(this.categoryRepository.save((CategoryEntity) any())).thenReturn(categoryEntity);
+//        when(this.categoryRepository.existsCategoryEntityByCategory(anyString())).thenReturn(false);
+//
+//        CategoryEntity categoryEntity1 = new CategoryEntity();
+//        categoryEntity1.setId(123L);
+//        categoryEntity1.setCategory("Category");
+//        when(this.categoryAddMapper.categoryAddBindingToCategoryEntity(anyString())).thenReturn(categoryEntity1);
+//        this.categoryServiceImpl.addCategory(new CategoryAddBindingModel());
+//        verify(this.categoryAddMapper).categoryAddBindingToCategoryEntity(anyString());
+//        verify(this.categoryRepository).save((CategoryEntity) any());
+//        verify(this.categoryRepository).existsCategoryEntityByCategory(anyString());
+//    }
 
     @Test
     public void testExistByCategory() {

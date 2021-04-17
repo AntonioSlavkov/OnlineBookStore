@@ -53,6 +53,18 @@ public class RoleControllerTest {
     }
 
     @Test
+    public void testGetUserRoles2() throws Exception {
+        when(this.roleService.getUserRoles(anyString())).thenReturn(new ArrayList<RoleViewModel>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/roles/all").param("username", "foo");
+        MockMvcBuilders.standaloneSetup(this.roleController)
+                .build()
+                .perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("[]")));
+    }
+
+    @Test
     public void testAddRoleToUser() throws Exception {
         when(this.userService.existsByUsername(anyString())).thenReturn(true);
         doNothing().when(this.roleService).addRoleToUser((UserAddRoleBindingModel) any());
@@ -95,6 +107,69 @@ public class RoleControllerTest {
     }
 
     @Test
+    public void testAddRoleToUser3() throws Exception {
+        when(this.userService.existsByUsername(anyString())).thenReturn(true);
+        doNothing().when(this.roleService).addRoleToUser((UserAddRoleBindingModel) any());
+
+        UserAddRoleBindingModel userAddRoleBindingModel = new UserAddRoleBindingModel();
+        userAddRoleBindingModel.setUsername("janedoe");
+        userAddRoleBindingModel.setRoleName(RoleName.ROOT_ADMIN);
+        String content = (new ObjectMapper()).writeValueAsString(userAddRoleBindingModel);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/roles/add")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content);
+        MockMvcBuilders.standaloneSetup(this.roleController)
+                .build()
+                .perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content()
+                        .string(Matchers.containsString("{\"message\":\"Role Added successfully\"}")));
+    }
+
+    @Test
+    public void testAddRoleToUser4() throws Exception {
+        when(this.userService.existsByUsername(anyString())).thenReturn(false);
+        doNothing().when(this.roleService).addRoleToUser((UserAddRoleBindingModel) any());
+
+        UserAddRoleBindingModel userAddRoleBindingModel = new UserAddRoleBindingModel();
+        userAddRoleBindingModel.setUsername("janedoe");
+        userAddRoleBindingModel.setRoleName(RoleName.ROOT_ADMIN);
+        String content = (new ObjectMapper()).writeValueAsString(userAddRoleBindingModel);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/roles/add")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content);
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.roleController)
+                .build()
+                .perform(requestBuilder);
+        actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content()
+                        .string(Matchers.containsString("{\"message\":\"User with janedoe does not exist\"}")));
+    }
+
+    @Test
+    public void testAddRoleToUser5() throws Exception {
+        when(this.userService.existsByUsername(anyString())).thenReturn(true);
+        doNothing().when(this.roleService).addRoleToUser((UserAddRoleBindingModel) any());
+
+        UserAddRoleBindingModel userAddRoleBindingModel = new UserAddRoleBindingModel();
+        userAddRoleBindingModel.setUsername("");
+        userAddRoleBindingModel.setRoleName(RoleName.ROOT_ADMIN);
+        String content = (new ObjectMapper()).writeValueAsString(userAddRoleBindingModel);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/roles/add")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content);
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.roleController)
+                .build()
+                .perform(requestBuilder);
+        actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content()
+                        .string(Matchers.containsString("{\"message\":\"Please provide a username\"}")));
+    }
+
+    @Test
     public void testRemoveRoleToUser() throws Exception {
         when(this.userService.existsByUsername(anyString())).thenReturn(true);
         doNothing().when(this.roleService).deleteRoleToUser(anyString(), (RoleName) any());
@@ -124,6 +199,54 @@ public class RoleControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(Matchers.containsString("{\"message\":\"User with foo does not exist\"}")));
+    }
+
+    @Test
+    public void testRemoveRoleToUser3() throws Exception {
+        when(this.userService.existsByUsername(anyString())).thenReturn(true);
+        doNothing().when(this.roleService).deleteRoleToUser(anyString(), (RoleName) any());
+        MockHttpServletRequestBuilder deleteResult = MockMvcRequestBuilders.delete("/roles/delete");
+        MockHttpServletRequestBuilder requestBuilder = deleteResult.param("roleName", String.valueOf(RoleName.ROOT_ADMIN))
+                .param("username", "foo");
+        MockMvcBuilders.standaloneSetup(this.roleController)
+                .build()
+                .perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content()
+                        .string(Matchers.containsString("{\"message\":\"Role deleted successfully\"}")));
+    }
+
+    @Test
+    public void testRemoveRoleToUser4() throws Exception {
+        when(this.userService.existsByUsername(anyString())).thenReturn(false);
+        doNothing().when(this.roleService).deleteRoleToUser(anyString(), (RoleName) any());
+        MockHttpServletRequestBuilder deleteResult = MockMvcRequestBuilders.delete("/roles/delete");
+        MockHttpServletRequestBuilder requestBuilder = deleteResult.param("roleName", String.valueOf(RoleName.ROOT_ADMIN))
+                .param("username", "foo");
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.roleController)
+                .build()
+                .perform(requestBuilder);
+        actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content()
+                        .string(Matchers.containsString("{\"message\":\"User with foo does not exist\"}")));
+    }
+
+    @Test
+    public void testRemoveRoleToUser5() throws Exception {
+        when(this.userService.existsByUsername(anyString())).thenReturn(true);
+        doNothing().when(this.roleService).deleteRoleToUser(anyString(), (RoleName) any());
+        MockHttpServletRequestBuilder deleteResult = MockMvcRequestBuilders.delete("/roles/delete");
+        MockHttpServletRequestBuilder requestBuilder = deleteResult.param("roleName", String.valueOf(RoleName.ROOT_ADMIN))
+                .param("username", "");
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.roleController)
+                .build()
+                .perform(requestBuilder);
+        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400))
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content()
+                        .string(Matchers.containsString("{\"message\":\"Please provide a username\"}")));
     }
 }
 

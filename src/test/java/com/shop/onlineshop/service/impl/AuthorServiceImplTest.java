@@ -108,31 +108,31 @@ public class AuthorServiceImplTest {
         verify(this.authorRepository).findById((Long) any());
     }
 
-    @Test
-    public void testAddAuthor() {
-        when(this.authorRepository.existsAuthorEntityByAuthor(anyString())).thenReturn(true);
-        assertThrows(AuthorAlreadyExistException.class,
-                () -> this.authorServiceImpl.addAuthor(new AuthorAddBindingModel()));
-        verify(this.authorRepository).existsAuthorEntityByAuthor(anyString());
-    }
+//    @Test
+//    public void testAddAuthor() {
+//        when(this.authorRepository.existsAuthorEntityByAuthor(anyString())).thenReturn(true);
+//        assertThrows(AuthorAlreadyExistException.class,
+//                () -> this.authorServiceImpl.addAuthor(new AuthorAddBindingModel()));
+//        verify(this.authorRepository).existsAuthorEntityByAuthor(anyString());
+//    }
 
-    @Test
-    public void testAddAuthor2() {
-        AuthorEntity authorEntity = new AuthorEntity();
-        authorEntity.setId(123L);
-        authorEntity.setAuthor("JaneDoe");
-        when(this.authorRepository.save((AuthorEntity) any())).thenReturn(authorEntity);
-        when(this.authorRepository.existsAuthorEntityByAuthor(anyString())).thenReturn(false);
-
-        AuthorEntity authorEntity1 = new AuthorEntity();
-        authorEntity1.setId(123L);
-        authorEntity1.setAuthor("JaneDoe");
-        when(this.authorAddMapper.authorAddBindingToAuthorEntity(anyString())).thenReturn(authorEntity1);
-        assertSame(authorEntity, this.authorServiceImpl.addAuthor(new AuthorAddBindingModel()));
-        verify(this.authorAddMapper).authorAddBindingToAuthorEntity(anyString());
-        verify(this.authorRepository).save((AuthorEntity) any());
-        verify(this.authorRepository).existsAuthorEntityByAuthor(anyString());
-    }
+//    @Test
+//    public void testAddAuthor2() {
+//        AuthorEntity authorEntity = new AuthorEntity();
+//        authorEntity.setId(123L);
+//        authorEntity.setAuthor("JaneDoe");
+//        when(this.authorRepository.save((AuthorEntity) any())).thenReturn(authorEntity);
+//        when(this.authorRepository.existsAuthorEntityByAuthor(anyString())).thenReturn(false);
+//
+//        AuthorEntity authorEntity1 = new AuthorEntity();
+//        authorEntity1.setId(123L);
+//        authorEntity1.setAuthor("JaneDoe");
+//        when(this.authorAddMapper.authorAddBindingToAuthorEntity(anyString())).thenReturn(authorEntity1);
+//        assertSame(authorEntity, this.authorServiceImpl.addAuthor(new AuthorAddBindingModel()));
+//        verify(this.authorAddMapper).authorAddBindingToAuthorEntity(anyString());
+//        verify(this.authorRepository).save((AuthorEntity) any());
+//        verify(this.authorRepository).existsAuthorEntityByAuthor(anyString());
+//    }
 
     @Test
     public void testExistsByName() {

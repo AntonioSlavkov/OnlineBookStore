@@ -29,7 +29,7 @@ const Register = () => {
         return <ErrorMessage errors={errors} name={inputName}>
             {
                 ({messages}) => messages && Object.entries(messages).map(([type, message]) =>
-                    (<p className={styles["error-message"]} key={type}>{message}</p>)
+                    (<div className="alert alert-danger"><p  key={type}>{message}</p></div>)
                 )
             }
         </ErrorMessage>;
